@@ -1,17 +1,32 @@
 package com.momomo.view;
 
+import com.momomo.control.AddUserEventListener;
+import com.momomo.control.UserRepositoryInterface;
+import com.momomo.model.User;
 import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.*;
+
+import java.util.List;
 
 /**
  * Created by Charberg on 2/19/2017.
  */
 @SpringUI
-public class TestPage extends UI {
+@org.springframework.stereotype.Component
+public class MainPage extends UI {
 
-    VerticalLayout layout = new VerticalLayout();
+    private VerticalLayout layout = new VerticalLayout();
+    private ListSelect userList;
+    private final UserRepositoryInterface userRepo;
+
+    @Autowired
+    public MainPage(UserRepositoryInterface userRepositoryInterface) {
+        this.userRepo = userRepositoryInterface;
+    }
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -24,7 +39,6 @@ public class TestPage extends UI {
         layout.addComponent(userTitle);
         layout.addComponent(userLayout);
 
-
         layout.setWidth(100, Unit.PERCENTAGE);
         userLayout.setWidth(100, Unit.PERCENTAGE);
 
@@ -35,8 +49,11 @@ public class TestPage extends UI {
         Button removeUserBtn = new Button("Remove User");
         Button inspectUserBtn = new Button("Inspect User");
 
-        ListSelect userList = new ListSelect();
+        addUserBtn.addClickListener(new AddUserEventListener(userRepo, this));
+
+        userList = new ListSelect();
         userList.setWidth(50, Unit.PERCENTAGE);
+        userList.setNullSelectionAllowed(false);
 
 
         userBtnPanel.setContent(userBtnLayout);
@@ -71,6 +88,7 @@ public class TestPage extends UI {
 
         ListSelect skillList = new ListSelect();
         skillList.setWidth(50, Unit.PERCENTAGE);
+        skillList.setNullSelectionAllowed(false);
 
 
         skillBtnPanel.setContent(skillBtnLayout);
@@ -85,6 +103,16 @@ public class TestPage extends UI {
 
         setContent(layout);
     }
+
+
+    public void updateUsersList(List<User> users) {
+
+        for(User user: users) {
+            userList.addItem(user.getName());
+        }
+
+    }
+
 
     //TODO method to gray out remove buttons when respective lists are empty
 }

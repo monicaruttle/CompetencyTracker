@@ -17,7 +17,8 @@ public class User {
 
     @Id
     private String username;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable
     private List<Skill> skills;
     private String name;
 

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,30 @@ public class User {
     private List<Skill> skills;
     private String name;
 
-    public User() { }
+    public User() {
+        skills = new ArrayList<>();
+    }
 
-    public User(String username, List<Skill> skills, String name) {
+    public User(String username, String name) {
         this.username = username;
-        this.skills = skills;
         this.name = name;
+
+        skills = new ArrayList<>();
+    }
+
+    public boolean addSkill(Skill skill) {
+        if (skills.contains(skill))
+            return false;
+
+        skills.add(skill);
+        return true;
+    }
+
+    public boolean hasSkill(Skill skill) {
+        for(Skill s:skills) {
+            if (s.equals(skill) || s.containsSubSkill(skill))
+                return true;
+        }
+        return false;
     }
 }

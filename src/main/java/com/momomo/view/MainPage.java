@@ -1,6 +1,7 @@
 package com.momomo.view;
 
 import com.momomo.control.AddUserEventListener;
+import com.momomo.control.AddUserPopupEventListener;
 import com.momomo.control.UserRepositoryInterface;
 import com.momomo.model.User;
 import com.vaadin.server.Sizeable;
@@ -49,7 +50,7 @@ public class MainPage extends UI {
         Button removeUserBtn = new Button("Remove User");
         Button inspectUserBtn = new Button("Inspect User");
 
-        addUserBtn.addClickListener(new AddUserEventListener(userRepo, this));
+        addUserBtn.addClickListener(new AddUserPopupEventListener(this));
 
         userList = new ListSelect();
         userList.setWidth(50, Unit.PERCENTAGE);
@@ -104,6 +105,28 @@ public class MainPage extends UI {
         setContent(layout);
     }
 
+    public void displayAddUserPopup() {
+
+        //Create pop up for new user fields
+
+        // Content for the PopupView
+        VerticalLayout popupContent = new VerticalLayout();
+        TextField userNameField = new TextField("Username");
+        TextField fullNameField = new TextField("Full Name");
+
+        popupContent.addComponent(userNameField);
+        popupContent.addComponent(fullNameField);
+        Button btn = new Button("Submit");
+        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField));
+        popupContent.addComponent(btn);
+        popupContent.setVisible(true);
+
+        // The component itself
+        Window w = new Window();
+        w.setContent(popupContent);
+        this.addWindow(w);
+
+    }
 
     public void updateUsersList(List<User> users) {
 

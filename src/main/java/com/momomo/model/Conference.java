@@ -6,13 +6,13 @@ import javax.persistence.Entity;
  * Created by Monica on 2017-02-19.
  */
 @Entity
-public class Book extends LearningMaterial {
+public class Conference extends LearningMaterial{
 
-    public Book() {
+    public Conference() {
         super();
     }
 
-    public Book(String name) {
+    public Conference(String name) {
         super(name);
     }
 }

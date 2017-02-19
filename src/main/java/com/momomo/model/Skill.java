@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,10 +22,15 @@ public class Skill {
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Skill> subSkills;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<LearningMaterial> learningMaterials;
 
-    public Skill() { }
+    public Skill() {
+        learningMaterials = new ArrayList<>();
+    }
 
-    public Skill(String name){
+    public Skill(String name) {
         this.name = name;
+        learningMaterials = new ArrayList<>();
     }
 }

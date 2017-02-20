@@ -21,10 +21,13 @@ public abstract class LearningMaterial {
     @Id
     private String name;
 
+    private MaterialType type;
+
     public LearningMaterial() { }
 
-    public LearningMaterial(String name) {
+    public LearningMaterial(String name, MaterialType type) {
         this.name = name;
+        this.type = type;
     }
 
     @Override

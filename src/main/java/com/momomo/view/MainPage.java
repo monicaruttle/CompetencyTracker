@@ -53,6 +53,7 @@ public class MainPage extends UI {
         userList = new ListSelect();
         userList.setWidth(50, Unit.PERCENTAGE);
         userList.setNullSelectionAllowed(false);
+        updateUsersList(userRepo.getAllUsers());
 
 
         userBtnPanel.setContent(userBtnLayout);
@@ -129,7 +130,7 @@ public class MainPage extends UI {
     public void updateUsersList(List<User> users) {
 
         for(User user: users) {
-            userList.addItem(user.getName());
+            userList.addItem(user.getUsername());
         }
 
     }

@@ -4,12 +4,10 @@ import com.momomo.control.AddUserEventListener;
 import com.momomo.control.AddUserPopupEventListener;
 import com.momomo.control.UserRepositoryInterface;
 import com.momomo.model.User;
-import com.vaadin.server.Sizeable;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.*;
 
 import java.util.List;
 

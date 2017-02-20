@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Skill {
+public class Skill implements Comparable<Skill> {
     @Id
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -33,6 +35,10 @@ public class Skill {
         this.name = name;
         learningMaterials = new ArrayList<>();
         subSkills = new ArrayList<>();
+    }
+
+    public boolean containsLearningMaterial(LearningMaterial learn) {
+        return learningMaterials.contains(learn);
     }
 
     public boolean addLearningMaterial(LearningMaterial learn) {
@@ -69,6 +75,16 @@ public class Skill {
             return true;
 
         Skill s = (Skill)object;
-        return (s.name == this.name);
+
+        Collections.sort(s.subSkills);
+        Collections.sort(this.subSkills);
+        boolean equalSkills = s.subSkills.equals(this.subSkills);
+
+        return (s.name.equals(this.name)) && equalSkills;
+    }
+
+    @Override
+    public int compareTo(Skill other){
+        return this.name.compareTo(other.name);
     }
 }

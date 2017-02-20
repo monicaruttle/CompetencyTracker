@@ -31,6 +31,13 @@ public class UserRepositoryInterface {
         repo.save(user);
     }
 
+    public void removeUser(String username) {
+
+        repo.delete(username);
+
+        return;
+    }
+
     public List<User> getAllUsers() {
         ArrayList<User> list = new ArrayList<User>();
         Iterable<User> iter = repo.findAll();

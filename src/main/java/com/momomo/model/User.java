@@ -45,4 +45,16 @@ public class User {
     public boolean hasSkill(Skill skill) {
         return skills.contains(skill);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null || !(obj instanceof User)) {
+            return false;
+        }
+
+        User user = (User) obj;
+
+        return user.getUsername().equals(this.getUsername());
+
+    }
 }

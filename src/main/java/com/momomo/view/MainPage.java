@@ -2,6 +2,7 @@ package com.momomo.view;
 
 import com.momomo.control.AddUserEventListener;
 import com.momomo.control.AddUserPopupEventListener;
+import com.momomo.control.RemoveUserEventListener;
 import com.momomo.control.UserRepositoryInterface;
 import com.momomo.model.User;
 import com.vaadin.server.Sizeable;
@@ -50,13 +51,14 @@ public class MainPage extends UI {
         Button removeUserBtn = new Button("Remove User");
         Button inspectUserBtn = new Button("Inspect User");
 
-        addUserBtn.addClickListener(new AddUserPopupEventListener(this));
-
         userList = new ListSelect();
         userList.setWidth(50, Unit.PERCENTAGE);
         userList.setNullSelectionAllowed(false);
+        userList.setMultiSelect(false);
         updateUsersList(userRepo.getAllUsers());
 
+        addUserBtn.addClickListener(new AddUserPopupEventListener(this));
+        removeUserBtn.addClickListener(new RemoveUserEventListener(userRepo, this, userList));
 
         userBtnPanel.setContent(userBtnLayout);
         userBtnLayout.addComponent(addUserBtn);
@@ -91,6 +93,7 @@ public class MainPage extends UI {
         ListSelect skillList = new ListSelect();
         skillList.setWidth(50, Unit.PERCENTAGE);
         skillList.setNullSelectionAllowed(false);
+        skillList.setMultiSelect(false);
 
 
         skillBtnPanel.setContent(skillBtnLayout);
@@ -130,6 +133,8 @@ public class MainPage extends UI {
     }
 
     public void updateUsersList(List<User> users) {
+
+        userList.removeAllItems();
 
         for(User user: users) {
             userList.addItem(user.getUsername());

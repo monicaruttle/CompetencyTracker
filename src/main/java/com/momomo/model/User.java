@@ -49,4 +49,16 @@ public class User {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null || !(obj instanceof User)) {
+            return false;
+        }
+
+        User user = (User) obj;
+
+        return user.getUsername().equals(this.getUsername());
+
+    }
 }

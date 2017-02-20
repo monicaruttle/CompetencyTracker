@@ -37,7 +37,7 @@ public class AddUserEventListener implements Button.ClickListener{
     // The listener method implementation
     public void buttonClick(Button.ClickEvent event) {
 
-        userRepo.addUser(new User(userNameField.getValue(), null, fullNameField.getValue()));
+        userRepo.addUser(new User(userNameField.getValue(), fullNameField.getValue()));
 
         page.updateUsersList(userRepo.getAllUsers());
     }

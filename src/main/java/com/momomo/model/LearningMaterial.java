@@ -13,10 +13,9 @@ import java.util.List;
  */
 
 @Entity
-@Inheritance
 @Getter
 @Setter
-public abstract class LearningMaterial {
+public class LearningMaterial {
 
     @Id
     private String name;

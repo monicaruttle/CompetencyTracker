@@ -4,6 +4,8 @@ import com.momomo.model.User;
 import com.momomo.view.MainPage;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,13 +20,15 @@ public class AddUserEventListener implements Button.ClickListener{
     private final MainPage page;
     private TextField userNameField;
     private TextField fullNameField;
+    private Window popup;
 
     //Pass in text fields to get values at moment of click
-    public AddUserEventListener(UserRepositoryInterface userRepo, MainPage page, TextField userNameField, TextField fullNameField) {
+    public AddUserEventListener(UserRepositoryInterface userRepo, MainPage page, TextField userNameField, TextField fullNameField, Window popup) {
         this.userRepo = userRepo;
         this.page = page;
         this.userNameField = userNameField;
         this.fullNameField = fullNameField;
+        this.popup = popup;
     }
 
     // The listener method implementation
@@ -33,6 +37,7 @@ public class AddUserEventListener implements Button.ClickListener{
         userRepo.addUser(new User(userNameField.getValue(), fullNameField.getValue()));
 
         page.updateUsersList(userRepo.getAllUsers());
+        page.removeWindow(popup);
     }
 
 }

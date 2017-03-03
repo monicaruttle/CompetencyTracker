@@ -119,13 +119,13 @@ public class MainPage extends UI {
         popupContent.addComponent(userNameField);
         popupContent.addComponent(fullNameField);
         Button btn = new Button("Submit");
-        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField));
         popupContent.addComponent(btn);
         popupContent.setVisible(true);
 
         // The component itself
         Window w = new Window();
         w.setContent(popupContent);
+        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField, w));
         this.addWindow(w);
 
     }

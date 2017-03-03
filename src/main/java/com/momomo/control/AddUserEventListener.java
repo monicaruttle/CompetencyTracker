@@ -2,10 +2,7 @@ package com.momomo.control;
 
 import com.momomo.model.User;
 import com.momomo.view.MainPage;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.ui.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +31,9 @@ public class AddUserEventListener implements Button.ClickListener{
     // The listener method implementation
     public void buttonClick(Button.ClickEvent event) {
 
-        userRepo.addUser(new User(userNameField.getValue(), fullNameField.getValue()));
+        if(!userRepo.addUser(new User(userNameField.getValue(), fullNameField.getValue()))){
+            Notification.show("User Already Exists","The Username you entered is already taken", Notification.Type.ERROR_MESSAGE);
+        }
 
         page.updateUsersList(userRepo.getAllUsers());
         page.removeWindow(popup);

@@ -27,8 +27,12 @@ public class UserRepositoryInterface {
 
     }
 
-    public void addUser(User user) {
-        repo.save(user);
+    public boolean addUser(User user) {
+        if(repo.findByUsername(user.getUsername()) == null) {
+            repo.save(user);
+            return true;
+        }
+        return false;
     }
 
     public void removeUser(String username) {

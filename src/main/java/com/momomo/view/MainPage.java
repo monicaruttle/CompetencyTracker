@@ -22,6 +22,10 @@ public class MainPage extends UI {
 
     private ListSelect userList;
     private final UserRepositoryInterface userRepo;
+    private MenuBar menuBar = new MenuBar();
+    private MenuBar.MenuItem userBar;
+    private MenuBar.MenuItem skillBar;
+    private VerticalLayout layout = new VerticalLayout();
 
     @Autowired
     public MainPage(UserRepositoryInterface userRepositoryInterface) {
@@ -30,7 +34,15 @@ public class MainPage extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        this.setContent(new UserManPage(this.userRepo));
+
+        menuBar.setWidth(100, Unit.PERCENTAGE);
+        userBar = menuBar.addItem("User Management", null);
+        skillBar = menuBar.addItem("Skill Management", null);
+        skillBar.addItem("Assign Skills", null);
+
+        layout.addComponent(menuBar);
+        layout.addComponent(new UserManPage(this.userRepo));
+        this.setContent(layout);
     }
 
 

@@ -22,6 +22,9 @@ public class MainPage extends UI {
     private VerticalLayout layout = new VerticalLayout();
     private ListSelect userList;
     private final UserRepositoryInterface userRepo;
+    private MenuBar menuBar;
+    private MenuBar.MenuItem userBar;
+    private MenuBar.MenuItem skillBar;
 
     @Autowired
     public MainPage(UserRepositoryInterface userRepositoryInterface) {
@@ -32,12 +35,19 @@ public class MainPage extends UI {
     protected void init(VaadinRequest vaadinRequest) {
 
         HorizontalLayout userLayout = new HorizontalLayout();
+        menuBar = new MenuBar();
+        menuBar.setWidth(100, Unit.PERCENTAGE);
+        userBar = menuBar.addItem("Manage Users", null);
+        skillBar = menuBar.addItem("Skills", null);
+        skillBar.addItem("Assign skills", null);
 
         Label userTitle = new Label( "User Modification System" );
         userTitle.addStyleName( "h1" );
 
+        layout.addComponent(menuBar);
         layout.addComponent(userTitle);
         layout.addComponent(userLayout);
+
 
         layout.setWidth(100, Unit.PERCENTAGE);
         userLayout.setWidth(100, Unit.PERCENTAGE);

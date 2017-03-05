@@ -1,6 +1,7 @@
 package com.momomo.control;
 
 import com.momomo.view.MainPage;
+import com.momomo.view.UserManPage;
 import com.vaadin.ui.Button;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +13,9 @@ import lombok.Setter;
 @Setter
 public class AddUserPopupEventListener implements Button.ClickListener{
 
-    private final MainPage page;
+    private final UserManPage page;
 
-    public AddUserPopupEventListener(MainPage page) {
+    public AddUserPopupEventListener(UserManPage page) {
         this.page = page;
     }
 

@@ -29,9 +29,9 @@ public class SkillRepositoryInterface {
 
     }
 
-    public boolean addSkill(Skill user) {
-        if(repo.findByName(user.getName()) == null) {
-            repo.save(user);
+    public boolean addSkill(Skill skill) {
+        if(repo.findByName(skill.getName()) == null) {
+            repo.save(skill);
             return true;
         }
         return false;

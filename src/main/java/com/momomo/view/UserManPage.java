@@ -1,9 +1,8 @@
 package com.momomo.view;
 
-import com.momomo.control.AddUserEventListener;
-import com.momomo.control.AddUserPopupEventListener;
-import com.momomo.control.RemoveUserEventListener;
-import com.momomo.control.UserRepositoryInterface;
+import com.momomo.control.*;
+import com.momomo.model.Skill;
+import com.momomo.model.SkillRepository;
 import com.momomo.model.User;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
@@ -17,9 +16,11 @@ import java.util.List;
 public class UserManPage extends VerticalLayout{
 
     private ListSelect userList;
+    private ListSelect skillList;
     private UserRepositoryInterface userRepo;
+    private SkillRepositoryInterface skillRepo;
 
-    public UserManPage(UserRepositoryInterface userRepositoryInterface) {
+    public UserManPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface) {
         this.userRepo = userRepositoryInterface;
 
         HorizontalLayout userLayout = new HorizontalLayout();
@@ -60,6 +61,7 @@ public class UserManPage extends VerticalLayout{
         userLayout.setExpandRatio(userList, 0.8f);
 
         /////////////////////////////////////////////////////////////////////////
+        this.skillRepo = skillRepositoryInterface;
 
         HorizontalLayout skillLayout = new HorizontalLayout();
 
@@ -79,11 +81,14 @@ public class UserManPage extends VerticalLayout{
         Button removeSkillBtn = new Button("Remove Skill");
         Button inspectSkillBtn = new Button("Inspect Skill");
 
-        ListSelect skillList = new ListSelect();
+        skillList = new ListSelect();
         skillList.setWidth(50, Unit.PERCENTAGE);
         skillList.setNullSelectionAllowed(false);
         skillList.setMultiSelect(false);
+        updateSkillList(skillRepo.getAllSkills());
 
+        addSkillBtn.addClickListener(new AddSkillPopupEventListener(this));
+        removeSkillBtn.addClickListener(new RemoveSkillEventListener(skillRepo, this, skillList));
 
         skillBtnPanel.setContent(skillBtnLayout);
         skillBtnLayout.addComponent(addSkillBtn);
@@ -120,12 +125,38 @@ public class UserManPage extends VerticalLayout{
 
     }
 
+    public void displayAddSkillPopup() {
+
+        VerticalLayout popupContent = new VerticalLayout();
+        TextField nameField = new TextField("Name");
+
+        popupContent.addComponent(nameField);
+        Button btn = new Button("Submit");
+        popupContent.addComponent(btn);
+        popupContent.setVisible(true);
+
+        Window w = new Window();
+        w.setContent(popupContent);
+        btn.addClickListener(new AddSkillEventListener(skillRepo, this, nameField, w));
+        this.getUI().addWindow(w);
+    }
+
     public void updateUsersList(List<User> users) {
 
         userList.removeAllItems();
 
         for(User user: users) {
             userList.addItem(user.getUsername());
+        }
+
+    }
+
+    public void updateSkillList(List<Skill> skills) {
+
+        skillList.removeAllItems();
+
+        for(Skill skill: skills) {
+            skillList.addItem(skill.getName());
         }
 
     }

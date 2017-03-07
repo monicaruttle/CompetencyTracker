@@ -17,8 +17,6 @@ import java.util.List;
 @org.springframework.stereotype.Component
 public class MainPage extends UI {
 
-
-    private ListSelect userList;
     private final UserRepositoryInterface userRepo;
     private final SkillRepositoryInterface skillRepo;
     private MenuBar menuBar = new MenuBar();
@@ -28,9 +26,9 @@ public class MainPage extends UI {
     private MenuBar.Command assignSkillsCommand;
 
     @Autowired
-    public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepo) {
+    public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface) {
         this.userRepo = userRepositoryInterface;
-        this.skillRepo = skillRepo;
+        this.skillRepo = skillRepositoryInterface;
     }
 
     @Override
@@ -43,7 +41,7 @@ public class MainPage extends UI {
         skillBar = menuBar.addItem("Skill Management", null);
         skillBar.addItem("Assign Skills", assignSkillsCommand);
         layout.addComponent(menuBar);
-        layout.addComponent(new UserManPage(this.userRepo));
+        layout.addComponent(new UserManPage(this.userRepo, this.skillRepo));
         this.setContent(layout);
     }
 

@@ -28,7 +28,9 @@ public class Skill implements Comparable<Skill> {
     private List<LearningMaterial> learningMaterials;
 
     public Skill() {
+
         learningMaterials = new ArrayList<>();
+        subSkills = new ArrayList<>();
     }
 
     public Skill(String name) {

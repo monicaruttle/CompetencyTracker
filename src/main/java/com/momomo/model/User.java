@@ -21,14 +21,10 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable
     private List<LearningMaterial> learningMaterials;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable
-    private List<Skill> skills;
     private String name;
 
     public User() {
         this.learningMaterials = new ArrayList<>();
-        this.skills = new ArrayList<>();
     }
 
     public User(String username, String name) {
@@ -43,18 +39,6 @@ public class User {
             return false;
         }
         this.learningMaterials.add(learningMaterial);
-        return true;
-    }
-
-    public boolean hasSkill(Skill skill) {
-        return skills.contains(skill);
-    }
-
-    public boolean addSkill(Skill skill) {
-        if (this.skills.contains(skill)) {
-            return false;
-        }
-        this.skills.add(skill);
         return true;
     }
 

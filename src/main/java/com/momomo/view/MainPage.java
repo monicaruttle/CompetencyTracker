@@ -23,6 +23,7 @@ public class MainPage extends UI {
     private VerticalLayout layout = new VerticalLayout();
     private MenuBar.Command assignLearningMaterialsCommand;
     private MenuBar.Command manageLearningMaterialsCommand;
+    private MenuBar.Command userManagementCommand;
 
     @Autowired
     public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
@@ -34,10 +35,10 @@ public class MainPage extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        setUpCommands(this);
+        setUpCommands();
 
         menuBar.setWidth(100, Unit.PERCENTAGE);
-        userBar = menuBar.addItem("User Management", null);
+        userBar = menuBar.addItem("User Management", userManagementCommand);
         skillBar = menuBar.addItem("Skill Management", null);
         materialBar = menuBar.addItem("Learning Material Management", null);
         materialBar.addItem("Add/Remove Learning Materials", manageLearningMaterialsCommand);
@@ -47,21 +48,13 @@ public class MainPage extends UI {
         this.setContent(layout);
     }
 
-    public void setUpCommands(MainPage page) {
+    public void setUpCommands() {
 
-        this.assignLearningMaterialsCommand = new MenuBar.Command() {
-            @Override
-            public void menuSelected(MenuBar.MenuItem menuItem) {
-                page.changeLayout(new AssignLearningMaterialsPage(userRepo, materialRepo));
-            }
-        };
+        this.assignLearningMaterialsCommand = (MenuBar.Command) menuItem -> this.changeLayout(new AssignLearningMaterialsPage(userRepo, materialRepo));
 
-        this.manageLearningMaterialsCommand = new MenuBar.Command() {
-            @Override
-            public void menuSelected(MenuBar.MenuItem menuItem) {
-                page.changeLayout(new LearningMaterialManPage(materialRepo));
-            }
-        };
+        this.manageLearningMaterialsCommand = (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(materialRepo));
+
+        this.userManagementCommand = (MenuBar.Command) selectedItem -> this.changeLayout(new UserManPage(userRepo, skillRepo));
 
     }
 

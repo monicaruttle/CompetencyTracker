@@ -9,19 +9,19 @@ import java.util.List;
 /**
  * Created by Charberg on 3/5/2017.
  */
-public class AssignSkillsPage extends VerticalLayout{
+public class AssignLearningMaterialsPage extends VerticalLayout{
 
     private ListSelect userList;
-    private ListSelect skillList;
+    private ListSelect learningMaterialList;
     private UserRepositoryInterface userRepo;
-    private SkillRepositoryInterface skillRepo;
+    private LearningMaterialRepositoryInterface learningMaterialRepo;
     private HorizontalLayout layout = new HorizontalLayout();
 
-    public AssignSkillsPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepo) {
+    public AssignLearningMaterialsPage(UserRepositoryInterface userRepositoryInterface, LearningMaterialRepositoryInterface learningMaterialRepo) {
         this.userRepo = userRepositoryInterface;
-        this.skillRepo = skillRepo;
+        this.learningMaterialRepo = learningMaterialRepo;
 
-        Label userTitle = new Label( "Assign Skills To Users" );
+        Label userTitle = new Label( "Assign Learning Materials To Users" );
         userTitle.addStyleName( "h1" );
 
         this.addComponent(userTitle);
@@ -32,8 +32,8 @@ public class AssignSkillsPage extends VerticalLayout{
         Panel userBtnPanel = new Panel();
         FormLayout userBtnLayout = new FormLayout();
 
-        Button assignSkillBtn = new Button("<< Assign to User");
-        Button removeSkillBtn = new Button(">> Remove from User");
+        Button assignSkillBtn = new Button("Assign to User");
+        Button removeSkillBtn = new Button("Remove from User");
         Button inspectUserBtn = new Button("Inspect User");
 
         userList = new ListSelect();
@@ -42,10 +42,10 @@ public class AssignSkillsPage extends VerticalLayout{
         userList.setMultiSelect(false);
         updateUsersList(userRepo.getAllUsers());
 
-        skillList = new ListSelect();
-        skillList.setWidth(100, Unit.PERCENTAGE);
-        skillList.setNullSelectionAllowed(false);
-        skillList.setMultiSelect(true);
+        learningMaterialList = new ListSelect();
+        learningMaterialList.setWidth(100, Unit.PERCENTAGE);
+        learningMaterialList.setNullSelectionAllowed(false);
+        learningMaterialList.setMultiSelect(true);
         //TODO Populate skill list with existing skills
 
         //TODO Add click listeners to buttons
@@ -56,11 +56,11 @@ public class AssignSkillsPage extends VerticalLayout{
         userBtnLayout.addComponent(inspectUserBtn);
         layout.addComponent(userList);
         layout.addComponent(userBtnLayout);
-        layout.addComponent(skillList);
+        layout.addComponent(learningMaterialList);
 
         layout.setExpandRatio(userBtnLayout, 0.4f);
         layout.setExpandRatio(userList, 0.8f);
-        layout.setExpandRatio(skillList, 0.8f);
+        layout.setExpandRatio(learningMaterialList, 0.8f);
 
 
     }

@@ -1,16 +1,16 @@
 package com.momomo.control;
 
-import com.momomo.model.User;
-import com.momomo.view.MainPage;
-import com.momomo.view.UserManPage;
-import com.vaadin.ui.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+        import com.momomo.model.User;
+        import com.momomo.view.MainPage;
+        import com.momomo.view.UserManPage;
+        import com.vaadin.ui.*;
+        import lombok.Getter;
+        import lombok.NoArgsConstructor;
+        import lombok.Setter;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Component;
 
-import javax.xml.soap.Text;
+        import javax.xml.soap.Text;
 
 /**
  * Created by Charberg on 2/19/2017.

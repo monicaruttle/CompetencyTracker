@@ -22,6 +22,11 @@ public class LearningMaterial {
 
     public LearningMaterial() { }
 
+    public LearningMaterial(String name) {
+        this.name = name;
+        this.type = MaterialType.BOOK;
+    }
+
     public LearningMaterial(String name, MaterialType type) {
         this.name = name;
         this.type = type;

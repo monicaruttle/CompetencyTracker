@@ -1,14 +1,10 @@
 package com.momomo.view;
 
 import com.momomo.control.*;
-import com.momomo.model.SkillRepository;
-import com.momomo.model.User;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 /**
  * Created by Charberg on 2/19/2017.
@@ -19,16 +15,20 @@ public class MainPage extends UI {
 
     private final UserRepositoryInterface userRepo;
     private final SkillRepositoryInterface skillRepo;
+    private final LearningMaterialRepositoryInterface materialRepo;
     private MenuBar menuBar = new MenuBar();
     private MenuBar.MenuItem userBar;
     private MenuBar.MenuItem skillBar;
+    private MenuBar.MenuItem materialBar;
     private VerticalLayout layout = new VerticalLayout();
-    private MenuBar.Command assignSkillsCommand;
+    private MenuBar.Command assignLearningMaterialsCommand;
+    private MenuBar.Command manageLearningMaterialsCommand;
 
     @Autowired
-    public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface) {
+    public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
         this.userRepo = userRepositoryInterface;
         this.skillRepo = skillRepositoryInterface;
+        this.materialRepo = learningMaterialRepositoryInterface;
     }
 
     @Override
@@ -39,7 +39,9 @@ public class MainPage extends UI {
         menuBar.setWidth(100, Unit.PERCENTAGE);
         userBar = menuBar.addItem("User Management", null);
         skillBar = menuBar.addItem("Skill Management", null);
-        skillBar.addItem("Assign Skills", assignSkillsCommand);
+        materialBar = menuBar.addItem("Learning Material Management", null);
+        materialBar.addItem("Add/Remove Learning Materials", manageLearningMaterialsCommand);
+        materialBar.addItem("Assign Learning Materials", assignLearningMaterialsCommand);
         layout.addComponent(menuBar);
         layout.addComponent(new UserManPage(this.userRepo, this.skillRepo));
         this.setContent(layout);
@@ -47,10 +49,17 @@ public class MainPage extends UI {
 
     public void setUpCommands(MainPage page) {
 
-        this.assignSkillsCommand = new MenuBar.Command() {
+        this.assignLearningMaterialsCommand = new MenuBar.Command() {
             @Override
             public void menuSelected(MenuBar.MenuItem menuItem) {
-                page.changeLayout(new AssignSkillsPage(userRepo, skillRepo));
+                page.changeLayout(new AssignLearningMaterialsPage(userRepo, materialRepo));
+            }
+        };
+
+        this.manageLearningMaterialsCommand = new MenuBar.Command() {
+            @Override
+            public void menuSelected(MenuBar.MenuItem menuItem) {
+                page.changeLayout(new LearningMaterialManPage(materialRepo));
             }
         };
 

@@ -1,6 +1,7 @@
 package com.momomo.control;
 
-import com.momomo.model.*;
+import com.momomo.model.LearningMaterial;
+import com.momomo.model.LearningMaterialRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,8 @@ public class LearningMaterialRepositoryInterface {
         return list;
     }
 
+    public LearningMaterial getLearningMaterialByName(String name) {
+        return repo.findByName(name);
+    }
 
 }

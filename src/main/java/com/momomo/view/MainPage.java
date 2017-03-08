@@ -21,8 +21,6 @@ public class MainPage extends UI {
     private MenuBar.MenuItem skillBar;
     private MenuBar.MenuItem materialBar;
     private VerticalLayout layout = new VerticalLayout();
-    private MenuBar.Command assignLearningMaterialsCommand;
-    private MenuBar.Command manageLearningMaterialsCommand;
 
     @Autowired
     public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
@@ -34,35 +32,15 @@ public class MainPage extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        setUpCommands(this);
-
         menuBar.setWidth(100, Unit.PERCENTAGE);
-        userBar = menuBar.addItem("User Management", null);
+        userBar = menuBar.addItem("User Management", (MenuBar.Command) selectedItem -> this.changeLayout(new UserManPage(userRepo, skillRepo)));
         skillBar = menuBar.addItem("Skill Management", null);
         materialBar = menuBar.addItem("Learning Material Management", null);
-        materialBar.addItem("Add/Remove Learning Materials", manageLearningMaterialsCommand);
-        materialBar.addItem("Assign Learning Materials", assignLearningMaterialsCommand);
+        materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(materialRepo)));
+        materialBar.addItem("Assign Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new AssignLearningMaterialsPage(userRepo, materialRepo)));
         layout.addComponent(menuBar);
         layout.addComponent(new UserManPage(this.userRepo, this.skillRepo));
         this.setContent(layout);
-    }
-
-    public void setUpCommands(MainPage page) {
-
-        this.assignLearningMaterialsCommand = new MenuBar.Command() {
-            @Override
-            public void menuSelected(MenuBar.MenuItem menuItem) {
-                page.changeLayout(new AssignLearningMaterialsPage(userRepo, materialRepo));
-            }
-        };
-
-        this.manageLearningMaterialsCommand = new MenuBar.Command() {
-            @Override
-            public void menuSelected(MenuBar.MenuItem menuItem) {
-                page.changeLayout(new LearningMaterialManPage(materialRepo));
-            }
-        };
-
     }
 
     public void changeLayout(Layout layout) {

@@ -2,11 +2,8 @@ package com.momomo.view;
 
 import com.momomo.control.*;
 import com.momomo.model.Skill;
-import com.momomo.model.SkillRepository;
 import com.momomo.model.User;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

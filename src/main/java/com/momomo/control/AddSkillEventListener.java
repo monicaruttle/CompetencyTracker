@@ -1,7 +1,6 @@
 package com.momomo.control;
 
 import com.momomo.model.Skill;
-import com.momomo.model.User;
 import com.momomo.view.UserManPage;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;

@@ -35,6 +35,15 @@ public class UserRepositoryInterface {
         return false;
     }
 
+    public boolean updateUser(User user) {
+        if (repo.findByUsername(user.getUsername()) == null) {
+            return false;
+        }
+        repo.save(user);
+        return true;
+
+    }
+
     public void removeUser(String username) {
 
         repo.delete(username);
@@ -47,6 +56,10 @@ public class UserRepositoryInterface {
         Iterable<User> iter = repo.findAll();
         iter.forEach(list::add);
         return list;
+    }
+
+    public User getUserByUserName(String name) {
+        return repo.findByUsername(name);
     }
 
 

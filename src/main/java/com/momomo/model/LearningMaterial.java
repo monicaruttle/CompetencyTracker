@@ -3,7 +3,8 @@ package com.momomo.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by danielsauve on 2017-02-19.
@@ -34,6 +35,9 @@ public class LearningMaterial {
 
     @Override
     public boolean equals(Object object) {
+        if (!(object instanceof LearningMaterial)) {
+            return false;
+        }
         if (object == this)
             return true;
 

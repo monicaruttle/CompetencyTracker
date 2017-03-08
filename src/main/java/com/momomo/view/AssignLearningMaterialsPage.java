@@ -1,6 +1,9 @@
 package com.momomo.view;
 
-import com.momomo.control.*;
+import com.momomo.control.AssignLearningMaterialListener;
+import com.momomo.control.LearningMaterialRepositoryInterface;
+import com.momomo.control.UserRepositoryInterface;
+import com.momomo.model.LearningMaterial;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
 
@@ -9,7 +12,7 @@ import java.util.List;
 /**
  * Created by Charberg on 3/5/2017.
  */
-public class AssignLearningMaterialsPage extends VerticalLayout{
+public class AssignLearningMaterialsPage extends VerticalLayout {
 
     private ListSelect userList;
     private ListSelect learningMaterialList;
@@ -21,8 +24,8 @@ public class AssignLearningMaterialsPage extends VerticalLayout{
         this.userRepo = userRepositoryInterface;
         this.learningMaterialRepo = learningMaterialRepo;
 
-        Label userTitle = new Label( "Assign Learning Materials To Users" );
-        userTitle.addStyleName( "h1" );
+        Label userTitle = new Label("Assign Learning Materials To Users");
+        userTitle.addStyleName("h1");
 
         this.addComponent(userTitle);
         this.addComponent(layout);
@@ -32,8 +35,8 @@ public class AssignLearningMaterialsPage extends VerticalLayout{
         Panel userBtnPanel = new Panel();
         FormLayout userBtnLayout = new FormLayout();
 
-        Button assignSkillBtn = new Button("Assign to User");
-        Button removeSkillBtn = new Button("Remove from User");
+        Button assignLearningMaterial = new Button("Assign to User");
+        Button removeLearningMaterial = new Button("Remove from User");
         Button inspectUserBtn = new Button("Inspect User");
 
         userList = new ListSelect();
@@ -46,13 +49,14 @@ public class AssignLearningMaterialsPage extends VerticalLayout{
         learningMaterialList.setWidth(100, Unit.PERCENTAGE);
         learningMaterialList.setNullSelectionAllowed(false);
         learningMaterialList.setMultiSelect(true);
-        //TODO Populate skill list with existing skills
+        updateLearningMaterialList(learningMaterialRepo.getAllLearningMaterials());
 
         //TODO Add click listeners to buttons
+        assignLearningMaterial.addClickListener(new AssignLearningMaterialListener(userList, learningMaterialList, learningMaterialRepo, userRepositoryInterface));
 
         userBtnPanel.setContent(userBtnLayout);
-        userBtnLayout.addComponent(assignSkillBtn);
-        userBtnLayout.addComponent(removeSkillBtn);
+        userBtnLayout.addComponent(assignLearningMaterial);
+        userBtnLayout.addComponent(removeLearningMaterial);
         userBtnLayout.addComponent(inspectUserBtn);
         layout.addComponent(userList);
         layout.addComponent(userBtnLayout);
@@ -66,15 +70,22 @@ public class AssignLearningMaterialsPage extends VerticalLayout{
     }
 
 
-
     public void updateUsersList(List<User> users) {
 
         userList.removeAllItems();
 
-        for(User user: users) {
+        for (User user : users) {
             userList.addItem(user.getUsername());
         }
 
+    }
+
+    public void updateLearningMaterialList(List<LearningMaterial> learningMaterials) {
+        this.learningMaterialList.removeAllItems();
+
+        for (LearningMaterial learningMaterial : learningMaterials) {
+            this.learningMaterialList.addItem(learningMaterial.getName());
+        }
     }
 
 }

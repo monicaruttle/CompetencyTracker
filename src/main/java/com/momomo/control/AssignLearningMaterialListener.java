@@ -4,6 +4,7 @@ import com.momomo.model.LearningMaterial;
 import com.momomo.model.User;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.Notification;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,9 +35,25 @@ public class AssignLearningMaterialListener implements Button.ClickListener {
         for (String s : learningMaterialNames) {
             learningMaterials.add(materialRepo.getLearningMaterialByName(s));
         }
+
+        ArrayList<String> alreadyAddedMaterials = new ArrayList<String>();
+        boolean alreadyAdded = false;
+
         for (LearningMaterial material : learningMaterials) {
-            user.addLearningMaterial(material);
+            if(user.getLearningMaterials().contains(material)) {
+                alreadyAddedMaterials.add(material.getName());
+                alreadyAdded = true;
+            }
+            else {
+                user.addLearningMaterial(material);
+            }
         }
+
+        if(alreadyAdded) {
+            Notification.show("User Already Has Learning Materials","The user already has learned the following materials: " + String.join(",", alreadyAddedMaterials), Notification.Type.ERROR_MESSAGE);
+        }
+
         userRepo.updateUser(user);
+
     }
 }

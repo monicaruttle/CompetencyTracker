@@ -51,7 +51,6 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         learningMaterialList.setMultiSelect(true);
         updateLearningMaterialList(learningMaterialRepo.getAllLearningMaterials());
 
-        //TODO Add click listeners to buttons
         assignLearningMaterial.addClickListener(new AssignLearningMaterialListener(userList, learningMaterialList, learningMaterialRepo, userRepositoryInterface));
 
         userBtnPanel.setContent(userBtnLayout);

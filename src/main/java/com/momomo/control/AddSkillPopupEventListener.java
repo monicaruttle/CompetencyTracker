@@ -1,5 +1,6 @@
 package com.momomo.control;
 
+import com.momomo.view.SkillManPage;
 import com.momomo.view.UserManPage;
 import com.vaadin.ui.Button;
 import lombok.Getter;
@@ -12,9 +13,9 @@ import lombok.Setter;
 @Setter
 public class AddSkillPopupEventListener implements Button.ClickListener{
 
-    private final UserManPage page;
+    private final SkillManPage page;
 
-    public AddSkillPopupEventListener(UserManPage page) {
+    public AddSkillPopupEventListener(SkillManPage page) {
         this.page = page;
     }
 

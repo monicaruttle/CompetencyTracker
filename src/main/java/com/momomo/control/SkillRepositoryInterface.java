@@ -44,11 +44,24 @@ public class SkillRepositoryInterface {
         return;
     }
 
+    public boolean updateSkill(Skill skill) {
+        if (repo.findByName(skill.getName()) == null) {
+            return false;
+        }
+        repo.save(skill);
+        return true;
+
+    }
+
     public List<Skill> getAllSkills() {
         ArrayList<Skill> list = new ArrayList<>();
         Iterable<Skill> iter = repo.findAll();
         iter.forEach(list::add);
         return list;
+    }
+
+    public Skill getSkillByName(String name) {
+        return repo.findByName(name);
     }
 
 

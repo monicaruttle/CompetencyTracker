@@ -15,9 +15,8 @@ public class UserManPage extends VerticalLayout{
     private ListSelect userList;
     private ListSelect skillList;
     private UserRepositoryInterface userRepo;
-    private SkillRepositoryInterface skillRepo;
 
-    public UserManPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface) {
+    public UserManPage(UserRepositoryInterface userRepositoryInterface) {
         this.userRepo = userRepositoryInterface;
 
         HorizontalLayout userLayout = new HorizontalLayout();
@@ -57,46 +56,6 @@ public class UserManPage extends VerticalLayout{
         userLayout.setExpandRatio(userBtnLayout, 0.2f);
         userLayout.setExpandRatio(userList, 0.8f);
 
-        /////////////////////////////////////////////////////////////////////////
-        this.skillRepo = skillRepositoryInterface;
-
-        HorizontalLayout skillLayout = new HorizontalLayout();
-
-        Label skillTitle = new Label( "Skill Modification System" );
-        skillTitle.addStyleName( "h1" );
-
-        this.addComponent(skillTitle);
-        this.addComponent(skillLayout);
-
-
-        skillLayout.setWidth(100, Unit.PERCENTAGE);
-
-        Panel skillBtnPanel = new Panel();
-        FormLayout skillBtnLayout = new FormLayout();
-
-        Button addSkillBtn = new Button("Add Skill");
-        Button removeSkillBtn = new Button("Remove Skill");
-        Button inspectSkillBtn = new Button("Inspect Skill");
-
-        skillList = new ListSelect();
-        skillList.setWidth(50, Unit.PERCENTAGE);
-        skillList.setNullSelectionAllowed(false);
-        skillList.setMultiSelect(false);
-        updateSkillList(skillRepo.getAllSkills());
-
-        addSkillBtn.addClickListener(new AddSkillPopupEventListener(this));
-        removeSkillBtn.addClickListener(new RemoveSkillEventListener(skillRepo, this, skillList));
-
-        skillBtnPanel.setContent(skillBtnLayout);
-        skillBtnLayout.addComponent(addSkillBtn);
-        skillBtnLayout.addComponent(removeSkillBtn);
-        skillBtnLayout.addComponent(inspectSkillBtn);
-        skillLayout.addComponent(skillBtnLayout);
-        skillLayout.addComponent(skillList);
-
-        skillLayout.setExpandRatio(skillBtnLayout, 0.2f);
-        skillLayout.setExpandRatio(skillList, 0.8f);
-
     }
 
     public void displayAddUserPopup() {
@@ -122,22 +81,6 @@ public class UserManPage extends VerticalLayout{
 
     }
 
-    public void displayAddSkillPopup() {
-
-        VerticalLayout popupContent = new VerticalLayout();
-        TextField nameField = new TextField("Name");
-
-        popupContent.addComponent(nameField);
-        Button btn = new Button("Submit");
-        popupContent.addComponent(btn);
-        popupContent.setVisible(true);
-
-        Window w = new Window();
-        w.setContent(popupContent);
-        btn.addClickListener(new AddSkillEventListener(skillRepo, this, nameField, w));
-        this.getUI().addWindow(w);
-    }
-
     public void updateUsersList(List<User> users) {
 
         userList.removeAllItems();
@@ -148,14 +91,5 @@ public class UserManPage extends VerticalLayout{
 
     }
 
-    public void updateSkillList(List<Skill> skills) {
-
-        skillList.removeAllItems();
-
-        for(Skill skill: skills) {
-            skillList.addItem(skill.getName());
-        }
-
-    }
 
 }

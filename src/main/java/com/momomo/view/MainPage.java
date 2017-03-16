@@ -40,7 +40,7 @@ public class MainPage extends UI {
         skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(new SkillManPage(skillRepo)));
 
         materialBar = menuBar.addItem("Learning Material Management", null);
-        materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(materialRepo)));
+        materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(userRepo, skillRepo, materialRepo)));
         materialBar.addItem("Assign Learning Materials to Users", (MenuBar.Command) menuItem -> this.changeLayout(new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo)));
         layout.addComponent(menuBar);
         layout.addComponent(new UserManPage(this.userRepo));

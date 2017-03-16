@@ -13,7 +13,6 @@ import java.util.List;
 public class UserManPage extends VerticalLayout{
 
     private ListSelect userList;
-    private ListSelect skillList;
     private UserRepositoryInterface userRepo;
 
     public UserManPage(UserRepositoryInterface userRepositoryInterface) {
@@ -45,6 +44,7 @@ public class UserManPage extends VerticalLayout{
 
         addUserBtn.addClickListener(new AddUserPopupEventListener(this));
         removeUserBtn.addClickListener(new RemoveUserEventListener(userRepo, this, userList));
+        inspectUserBtn.addClickListener(e -> this.displayInspectUserPopup());
 
         userBtnPanel.setContent(userBtnLayout);
         userBtnLayout.addComponent(addUserBtn);
@@ -79,6 +79,38 @@ public class UserManPage extends VerticalLayout{
         btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField, w));
         this.getUI().addWindow(w);
 
+    }
+
+    public void displayInspectUserPopup() {
+
+        if(userList.getValue() == null) {
+            return;
+        }
+
+        VerticalLayout popupContent = new VerticalLayout();
+
+        TextArea skillTextArea = new TextArea("User's skills:");
+        TextArea materialTextArea = new TextArea("User's learned materials:");
+        skillTextArea.setReadOnly(true);
+        materialTextArea.setReadOnly(true);
+
+        //TODO: Add skill and material values to skillTextArea and materialTextArea, which are associated with selected user
+
+        User user = userRepo.getUserByUserName((String)userList.getValue());
+
+        popupContent.addComponent(new Label("Username: " + user.getUsername()));
+        popupContent.addComponent(new Label("Full Name: " + user.getName()));
+        popupContent.addComponent(skillTextArea);
+        popupContent.addComponent(materialTextArea);
+        Button btn = new Button("OK");
+        popupContent.addComponent(btn);
+        popupContent.setVisible(true);
+
+        Window w = new Window();
+
+        w.setContent(popupContent);
+        btn.addClickListener(e -> this.getUI().removeWindow(w));
+        this.getUI().addWindow(w);
     }
 
     public void updateUsersList(List<User> users) {

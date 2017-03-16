@@ -6,6 +6,7 @@ import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
 
+import javax.xml.soap.Text;
 import java.util.List;
 
 /**
@@ -14,9 +15,14 @@ import java.util.List;
 public class LearningMaterialManPage extends VerticalLayout {
 
     private ListSelect learningMaterialList;
+    private UserRepositoryInterface userRepo;
+    private SkillRepositoryInterface skillRepo;
     private LearningMaterialRepositoryInterface materialRepo;
 
-    public LearningMaterialManPage(LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
+    public LearningMaterialManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepo, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
+
+        this.userRepo = userRepo;
+        this.skillRepo = skillRepo;
         this.materialRepo = learningMaterialRepositoryInterface;
 
         HorizontalLayout materialLayout = new HorizontalLayout();
@@ -35,6 +41,7 @@ public class LearningMaterialManPage extends VerticalLayout {
 
         Button addMaterialBtn = new Button("Add Learning Material");
         Button removeMaterialBtn = new Button("Remove Learning Material");
+        Button inspectMaterialBtn = new Button("Inspect Learning Material");
 
         learningMaterialList = new ListSelect();
         learningMaterialList.setWidth(50, Unit.PERCENTAGE);
@@ -44,10 +51,13 @@ public class LearningMaterialManPage extends VerticalLayout {
 
         addMaterialBtn.addClickListener(new AddLearningMaterialPopupEventListener(this));
         removeMaterialBtn.addClickListener(new RemoveLearningMaterialEventListener(this.materialRepo, this, learningMaterialList));
+        inspectMaterialBtn.addClickListener(e -> this.displayInspectLearningMaterialPopup());
+
 
         learningMaterialBtnPanel.setContent(learningMaterialBtnLayout);
         learningMaterialBtnLayout.addComponent(addMaterialBtn);
         learningMaterialBtnLayout.addComponent(removeMaterialBtn);
+        learningMaterialBtnLayout.addComponent(inspectMaterialBtn);
         materialLayout.addComponent(learningMaterialBtnLayout);
         materialLayout.addComponent(learningMaterialList);
 
@@ -73,6 +83,37 @@ public class LearningMaterialManPage extends VerticalLayout {
         btn.addClickListener(new AddLearningMaterialEventListener(this.materialRepo, this, nameField, w));
         this.getUI().addWindow(w);
     }
+
+    public void displayInspectLearningMaterialPopup() {
+
+        if(learningMaterialList.getValue() == null) {
+            return;
+        }
+
+        VerticalLayout popupContent = new VerticalLayout();
+        TextField nameField = new TextField("Name");
+
+        TextArea skillTextArea = new TextArea("Skills with this material:");
+        TextArea userTextArea = new TextArea("Users that have learned this material:");
+        skillTextArea.setReadOnly(true);
+        userTextArea.setReadOnly(true);
+
+        //TODO: Add skill and user values to skillTextArea and userTextArea, which are associated with selected material
+
+        popupContent.addComponent(new Label("Learning Material: " + (String)learningMaterialList.getValue()));
+        popupContent.addComponent(skillTextArea);
+        popupContent.addComponent(userTextArea);
+        Button btn = new Button("OK");
+        popupContent.addComponent(btn);
+        popupContent.setVisible(true);
+
+        Window w = new Window();
+
+        w.setContent(popupContent);
+        btn.addClickListener(e -> this.getUI().removeWindow(w));
+        this.getUI().addWindow(w);
+    }
+
 
     public void updateLearningMaterialsList(List<LearningMaterial> materials) {
 

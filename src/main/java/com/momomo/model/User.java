@@ -11,7 +11,7 @@ import java.util.List;
  * Created by danielsauve on 2017-02-19.
  * This class will represent all the user information
  */
-@Entity
+@Entity(name = "user_model")
 @Getter
 @Setter
 public class User {

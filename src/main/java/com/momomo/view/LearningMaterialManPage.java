@@ -91,7 +91,6 @@ public class LearningMaterialManPage extends VerticalLayout {
         }
 
         VerticalLayout popupContent = new VerticalLayout();
-        TextField nameField = new TextField("Name");
 
         TextArea skillTextArea = new TextArea("Skills with this material:");
         TextArea userTextArea = new TextArea("Users that have learned this material:");

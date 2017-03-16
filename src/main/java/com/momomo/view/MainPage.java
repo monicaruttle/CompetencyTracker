@@ -43,7 +43,7 @@ public class MainPage extends UI {
         materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(materialRepo)));
         materialBar.addItem("Assign Learning Materials to Users", (MenuBar.Command) menuItem -> this.changeLayout(new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo)));
         layout.addComponent(menuBar);
-        layout.addComponent(new UserManPage(this.userRepo));
+        layout.addComponent(new LoginPage(this.userRepo, this));
         this.setContent(layout);
     }
 

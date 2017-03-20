@@ -2,11 +2,9 @@ package com.momomo.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,12 +17,14 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@PersistenceContext(type = PersistenceContextType.EXTENDED)
+@Proxy(lazy=false)
 public class Skill implements Comparable<Skill> {
     @Id
     private String name;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Skill> subSkills;
     @ManyToMany(fetch = FetchType.LAZY)
+    private List<Skill> subSkills;
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<LearningMaterial> learningMaterials;
 
     public Skill() {
@@ -48,6 +48,10 @@ public class Skill implements Comparable<Skill> {
             return false;
         learningMaterials.add(learn);
         return true;
+    }
+
+    public void removeLearningMaterial(LearningMaterial learn) {
+        this.getLearningMaterials().remove(learn);
     }
 
     public boolean containsSubSkill(Skill skill) {

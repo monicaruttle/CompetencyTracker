@@ -27,6 +27,6 @@ public class LoginEventListener implements Button.ClickListener {
     public void buttonClick(Button.ClickEvent clickEvent) {
         //check if password and username match with the one in the repo.
 
-        mainPage.setContent(new UserManPage(userRepositoryInterface, skillRepositoryInterface));
+        mainPage.changeLayout(new UserManPage(userRepositoryInterface, skillRepositoryInterface));
     }
 }

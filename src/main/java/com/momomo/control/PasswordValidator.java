@@ -30,7 +30,7 @@ public class PasswordValidator extends AbstractValidator<String> {
 
     @Override
     public Class<String> getType() {
-        return null;
+        return String.class;
     }
 
     public boolean hasUpperCase(String value) {

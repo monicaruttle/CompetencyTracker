@@ -1,10 +1,12 @@
 package com.momomo.view;
 
 import com.momomo.control.*;
+import com.momomo.model.LearningMaterial;
 import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +16,12 @@ public class SkillManPage extends VerticalLayout{
 
     private ListSelect userList;
     private ListSelect skillList;
+    private UserRepositoryInterface userRepo;
     private SkillRepositoryInterface skillRepo;
 
-    public SkillManPage(SkillRepositoryInterface skillRepositoryInterface) {
+    public SkillManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepositoryInterface) {
 
-        /////////////////////////////////////////////////////////////////////////
+        this.userRepo = userRepo;
         this.skillRepo = skillRepositoryInterface;
 
         HorizontalLayout skillLayout = new HorizontalLayout();
@@ -88,11 +91,33 @@ public class SkillManPage extends VerticalLayout{
 
         TextArea userTextArea = new TextArea("Users with this skill:");
         TextArea materialTextArea = new TextArea("Learning Materials associated to this skill:");
+
+        String materialString = "";
+
+        Skill skill = skillRepo.getSkillByName((String)skillList.getValue());
+
+        for(LearningMaterial material : skill.getLearningMaterials()) {
+            materialString = materialString + material.getName() + "\n";
+        }
+
+        String userString = "";
+
+        ArrayList<User> addedUsers = new ArrayList<User>();
+        for(LearningMaterial material: skill.getLearningMaterials()) {
+            for(User user : userRepo.getUsersByLearningMaterial(material)) {
+                if(!addedUsers.contains(user)) {
+                    addedUsers.add(user);
+                    userString = userString + user.getUsername() + "\n";
+                }
+            }
+        }
+
+        userTextArea.setValue(userString);
+        materialTextArea.setValue(materialString);
+
+        //Setting read only must be done AFTER setting text are value
         userTextArea.setReadOnly(true);
         materialTextArea.setReadOnly(true);
-
-        //TODO: Add skill and user values to skillTextArea and userTextArea, which are associated with selected material
-
         popupContent.addComponent(new Label("Skill Name: " + (String)skillList.getValue()));
         popupContent.addComponent(userTextArea);
         popupContent.addComponent(materialTextArea);

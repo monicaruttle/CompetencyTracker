@@ -94,11 +94,27 @@ public class LearningMaterialManPage extends VerticalLayout {
 
         TextArea skillTextArea = new TextArea("Skills with this material:");
         TextArea userTextArea = new TextArea("Users that have learned this material:");
+
+        //Populate skill and user text areas, associated to selected material
+
+        String userString = "";
+
+        for(User user : userRepo.getUsersByLearningMaterial(materialRepo.getLearningMaterialByName((String)learningMaterialList.getValue()))) {
+            userString = userString + user.getUsername() + "\n";
+        }
+
+        String skillString = "";
+
+        for(Skill skill : skillRepo.getSkillsByLearningMaterial(materialRepo.getLearningMaterialByName((String)learningMaterialList.getValue()))) {
+            skillString = skillString + skill.getName() + "\n";
+        }
+
+        userTextArea.setValue(userString);
+        skillTextArea.setValue(skillString);
+
+        //Setting to read only must be done AFTER setting value!
         skillTextArea.setReadOnly(true);
         userTextArea.setReadOnly(true);
-
-        //TODO: Add skill and user values to skillTextArea and userTextArea, which are associated with selected material
-
         popupContent.addComponent(new Label("Learning Material: " + (String)learningMaterialList.getValue()));
         popupContent.addComponent(skillTextArea);
         popupContent.addComponent(userTextArea);

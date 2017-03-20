@@ -12,12 +12,14 @@ public class LoginEventListener implements Button.ClickListener {
     private String username;
     private String password;
     private UserRepositoryInterface userRepositoryInterface;
+    private SkillRepositoryInterface skillRepositoryInterface;
     private MainPage mainPage;
 
-    public LoginEventListener(String username, String password, UserRepositoryInterface userRepositoryInterface, MainPage mainPage){
+    public LoginEventListener(String username, String password, UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, MainPage mainPage){
         this.username = username;
         this.password = password;
         this.userRepositoryInterface = userRepositoryInterface;
+        this.skillRepositoryInterface = skillRepositoryInterface;
         this.mainPage = mainPage;
     }
 
@@ -25,6 +27,6 @@ public class LoginEventListener implements Button.ClickListener {
     public void buttonClick(Button.ClickEvent clickEvent) {
         //check if password and username match with the one in the repo.
 
-        mainPage.setContent(new UserManPage(userRepositoryInterface));
+        mainPage.setContent(new UserManPage(userRepositoryInterface, skillRepositoryInterface));
     }
 }

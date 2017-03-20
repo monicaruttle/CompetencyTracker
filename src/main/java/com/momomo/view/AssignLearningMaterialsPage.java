@@ -46,7 +46,6 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
 
         Button assignLearningMaterial = new Button("Assign to User");
         Button removeLearningMaterial = new Button("Remove from User");
-        Button inspectUserBtn = new Button("Inspect User");
 
         userList = new ListSelect();
         userList.setWidth(100, Unit.PERCENTAGE);
@@ -64,7 +63,6 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         userBtnPanel.setContent(userBtnLayout);
         userBtnLayout.addComponent(assignLearningMaterial);
         userBtnLayout.addComponent(removeLearningMaterial);
-        userBtnLayout.addComponent(inspectUserBtn);
         assignToUserLayout.addComponent(userList);
         assignToUserLayout.addComponent(userBtnLayout);
         assignToUserLayout.addComponent(learningMaterialList1);
@@ -72,7 +70,6 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         assignToUserLayout.setExpandRatio(userBtnLayout, 0.4f);
         assignToUserLayout.setExpandRatio(userList, 0.8f);
         assignToUserLayout.setExpandRatio(learningMaterialList1, 0.8f);
-
 
         //ASSIGN TO SKILL LAYOUT//
 
@@ -103,6 +100,7 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         updateLearningMaterialList(learningMaterialRepo.getAllLearningMaterials());
 
         assignMaterialToSkill.addClickListener(new AssignMaterialToSkillListener(skillList, learningMaterialList2, learningMaterialRepo, skillRepo));
+        removeMaterialFromSkill.addClickListener(new RemoveMaterialFromSkillListener(skillList, learningMaterialList2, learningMaterialRepo, skillRepo));
 
         skillBtnPanel.setContent(skillBtnLayout);
         skillBtnLayout.addComponent(assignMaterialToSkill);

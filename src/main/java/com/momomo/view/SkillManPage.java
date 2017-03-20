@@ -47,6 +47,7 @@ public class SkillManPage extends VerticalLayout{
 
         addSkillBtn.addClickListener(new AddSkillPopupEventListener(this));
         removeSkillBtn.addClickListener(new RemoveSkillEventListener(skillRepo, this, skillList));
+        inspectSkillBtn.addClickListener(e -> this.displayInspectSkillPopup());
 
         skillBtnPanel.setContent(skillBtnLayout);
         skillBtnLayout.addComponent(addSkillBtn);
@@ -77,7 +78,34 @@ public class SkillManPage extends VerticalLayout{
         this.getUI().addWindow(w);
     }
 
+    public void displayInspectSkillPopup() {
 
+        if(skillList.getValue() == null) {
+            return;
+        }
+
+        VerticalLayout popupContent = new VerticalLayout();
+
+        TextArea userTextArea = new TextArea("Users with this skill:");
+        TextArea materialTextArea = new TextArea("Learning Materials associated to this skill:");
+        userTextArea.setReadOnly(true);
+        materialTextArea.setReadOnly(true);
+
+        //TODO: Add skill and user values to skillTextArea and userTextArea, which are associated with selected material
+
+        popupContent.addComponent(new Label("Skill Name: " + (String)skillList.getValue()));
+        popupContent.addComponent(userTextArea);
+        popupContent.addComponent(materialTextArea);
+        Button btn = new Button("OK");
+        popupContent.addComponent(btn);
+        popupContent.setVisible(true);
+
+        Window w = new Window();
+
+        w.setContent(popupContent);
+        btn.addClickListener(e -> this.getUI().removeWindow(w));
+        this.getUI().addWindow(w);
+    }
 
     public void updateSkillList(List<Skill> skills) {
 

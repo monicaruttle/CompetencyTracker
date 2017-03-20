@@ -1,5 +1,7 @@
 package com.momomo.control;
 
+import com.momomo.model.LearningMaterial;
+import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.momomo.model.UserRepository;
 import lombok.Getter;
@@ -62,5 +64,16 @@ public class UserRepositoryInterface {
         return repo.findByUsername(name);
     }
 
+    public List<User> getUsersByLearningMaterial(LearningMaterial material) {
+
+        ArrayList<User> list = new ArrayList<User>();
+        Iterable<User> iter = repo.findAll();
+        for(User user: iter) {
+            if(user.getLearningMaterials().contains(material)) {
+                list.add(user);
+            }
+        }
+        return list;
+    }
 
 }

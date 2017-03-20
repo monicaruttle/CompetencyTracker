@@ -1,6 +1,8 @@
 package com.momomo.view;
 
 import com.momomo.control.*;
+import com.momomo.model.Skill;
+import com.momomo.model.SkillRepository;
 import com.vaadin.data.Validator;
 import com.vaadin.data.validator.EmailValidator;
 import java.awt.event.FocusAdapter;
@@ -23,7 +25,7 @@ public class LoginPage extends VerticalLayout{
 
     private MainPage mainPage;
 
-    public LoginPage(UserRepositoryInterface userRepositoryInterface, MainPage mainPage) {
+    public LoginPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, MainPage mainPage) {
 
         this.mainPage = mainPage;
 
@@ -46,7 +48,7 @@ public class LoginPage extends VerticalLayout{
 
         loginBtn = new Button("Login");
         loginBtn.setWidth("300px");
-        loginBtn.addClickListener(new LoginEventListener(username.getValue(), password.getValue(), userRepositoryInterface, mainPage));
+        loginBtn.addClickListener(new LoginEventListener(username.getValue(), password.getValue(), userRepositoryInterface, skillRepositoryInterface, mainPage));
         this.addComponent(loginBtn);
     }
 }

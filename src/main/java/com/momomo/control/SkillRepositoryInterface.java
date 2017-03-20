@@ -1,9 +1,6 @@
 package com.momomo.control;
 
-import com.momomo.model.Skill;
-import com.momomo.model.SkillRepository;
-import com.momomo.model.User;
-import com.momomo.model.UserRepository;
+import com.momomo.model.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +61,15 @@ public class SkillRepositoryInterface {
         return repo.findByName(name);
     }
 
+    public List<Skill> getSkillsByLearningMaterial(LearningMaterial material) {
+        ArrayList<Skill> list = new ArrayList<Skill>();
+        Iterable<Skill> iter = repo.findAll();
+        for(Skill skill: iter) {
+            if(skill.getLearningMaterials().contains(material)) {
+                list.add(skill);
+            }
+        }
+        return list;
+    }
 
 }

@@ -34,7 +34,7 @@ public class MainPage extends UI {
 
         menuBar.setWidth(100, Unit.PERCENTAGE);
         userBar = menuBar.addItem("User Management", null);
-        userBar.addItem("Add/Remove Users", (MenuBar.Command) selectedItem -> this.changeLayout(new UserManPage(userRepo)));
+        userBar.addItem("Add/Remove Users", (MenuBar.Command) selectedItem -> this.changeLayout(new UserManPage(userRepo, skillRepo)));
 
         skillBar = menuBar.addItem("Skill Management", null);
         skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(new SkillManPage(skillRepo)));
@@ -44,7 +44,7 @@ public class MainPage extends UI {
         materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(userRepo, skillRepo, materialRepo)));
         materialBar.addItem("Assign Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo)));
         layout.addComponent(menuBar);
-        layout.addComponent(new UserManPage(this.userRepo));
+        layout.addComponent(new UserManPage(this.userRepo, this.skillRepo));
         this.setContent(layout);
     }
 

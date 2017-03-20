@@ -37,7 +37,7 @@ public class MainPage extends UI {
         userBar.addItem("Add/Remove Users", (MenuBar.Command) selectedItem -> this.changeLayout(new UserManPage(userRepo, skillRepo)));
 
         skillBar = menuBar.addItem("Skill Management", null);
-        skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(new SkillManPage(skillRepo)));
+        skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(new SkillManPage(userRepo, skillRepo)));
         skillBar.addItem("Assign Subskills", (MenuBar.Command) selectedItem -> this.changeLayout(new AssignSubSkillsPage(skillRepo)));
 
         materialBar = menuBar.addItem("Learning Material Management", null);

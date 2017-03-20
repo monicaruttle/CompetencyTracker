@@ -98,17 +98,14 @@ public class UserManPage extends VerticalLayout{
         User user = userRepo.getUserByUserName((String)userList.getValue());
 
         String materialString = "";
+        String skillString = "";
 
         for(LearningMaterial material : user.getLearningMaterials()) {
             materialString = materialString + material.getName() + "\n";
-        }
 
-        String skillString = "";
-
-        for(LearningMaterial material: user.getLearningMaterials()) {
-           for(Skill skill : skillRepo.getSkillsByLearningMaterial(material)) {
-               skillString = skillString + skill.getName() + "\n";
-           }
+            for(Skill skill : skillRepo.getSkillsByLearningMaterial(material)) {
+                skillString = skillString + skill.getName() + "\n";
+            }
         }
 
         skillTextArea.setValue(skillString);

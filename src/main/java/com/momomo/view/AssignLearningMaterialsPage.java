@@ -103,6 +103,7 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         updateLearningMaterialList(learningMaterialRepo.getAllLearningMaterials());
 
         assignMaterialToSkill.addClickListener(new AssignMaterialToSkillListener(skillList, learningMaterialList2, learningMaterialRepo, skillRepo));
+        removeMaterialFromSkill.addClickListener(new RemoveMaterialFromSkillListener(skillList, learningMaterialList2, learningMaterialRepo, skillRepo));
 
         skillBtnPanel.setContent(skillBtnLayout);
         skillBtnLayout.addComponent(assignMaterialToSkill);

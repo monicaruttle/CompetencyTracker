@@ -1,6 +1,7 @@
 package com.momomo.view;
 
 import com.momomo.control.*;
+import com.momomo.model.LearningMaterial;
 import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
@@ -14,9 +15,11 @@ public class UserManPage extends VerticalLayout{
 
     private ListSelect userList;
     private UserRepositoryInterface userRepo;
+    private SkillRepositoryInterface skillRepo;
 
-    public UserManPage(UserRepositoryInterface userRepositoryInterface) {
+    public UserManPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepo) {
         this.userRepo = userRepositoryInterface;
+        this.skillRepo = skillRepo;
 
         HorizontalLayout userLayout = new HorizontalLayout();
 
@@ -91,12 +94,29 @@ public class UserManPage extends VerticalLayout{
 
         TextArea skillTextArea = new TextArea("User's skills:");
         TextArea materialTextArea = new TextArea("User's learned materials:");
-        skillTextArea.setReadOnly(true);
-        materialTextArea.setReadOnly(true);
-
-        //TODO: Add skill and material values to skillTextArea and materialTextArea, which are associated with selected user
 
         User user = userRepo.getUserByUserName((String)userList.getValue());
+
+        String materialString = "";
+
+        for(LearningMaterial material : user.getLearningMaterials()) {
+            materialString = materialString + material.getName() + "\n";
+        }
+
+        String skillString = "";
+
+        for(LearningMaterial material: user.getLearningMaterials()) {
+           for(Skill skill : skillRepo.getSkillsByLearningMaterial(material)) {
+               skillString = skillString + skill.getName() + "\n";
+           }
+        }
+
+        skillTextArea.setValue(skillString);
+        materialTextArea.setValue(materialString);
+
+        //Setting to read only must be done AFTER setting field content
+        skillTextArea.setReadOnly(true);
+        materialTextArea.setReadOnly(true);
 
         popupContent.addComponent(new Label("Username: " + user.getUsername()));
         popupContent.addComponent(new Label("Full Name: " + user.getName()));

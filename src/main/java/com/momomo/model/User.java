@@ -18,7 +18,7 @@ public class User {
 
     @Id
     private String username;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable
     private List<LearningMaterial> learningMaterials;
     private String name;

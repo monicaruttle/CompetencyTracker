@@ -6,7 +6,6 @@ import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,36 +21,16 @@ import java.util.List;
 public class Skill implements Comparable<Skill> {
     @Id
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Skill> subSkills;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<LearningMaterial> learningMaterials;
+    private List<Skill> subSkills;
 
     public Skill() {
-
-        learningMaterials = new ArrayList<>();
         subSkills = new ArrayList<>();
     }
 
     public Skill(String name) {
         this.name = name;
-        learningMaterials = new ArrayList<>();
         subSkills = new ArrayList<>();
-    }
-
-    public boolean containsLearningMaterial(LearningMaterial learn) {
-        return learningMaterials.contains(learn);
-    }
-
-    public boolean addLearningMaterial(LearningMaterial learn) {
-        if (learningMaterials.contains(learn))
-            return false;
-        learningMaterials.add(learn);
-        return true;
-    }
-
-    public void removeLearningMaterial(LearningMaterial learn) {
-        this.getLearningMaterials().remove(learn);
     }
 
     public boolean containsSubSkill(Skill skill) {

@@ -2,6 +2,7 @@ package com.momomo.control;
 
 import com.momomo.model.LearningMaterial;
 import com.momomo.model.LearningMaterialRepository;
+import com.momomo.model.Skill;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,17 @@ public class LearningMaterialRepositoryInterface {
         return false;
     }
 
+    public boolean updateLearningMaterial(LearningMaterial material) {
+        if (repo.findByName(material.getName()) == null) {
+            return false;
+        }
+        repo.save(material);
+        return true;
+
+    }
+
     public void removeLearningMaterial(String name) {
         repo.delete(name);
-        return;
     }
 
     public List<LearningMaterial> getAllLearningMaterials() {

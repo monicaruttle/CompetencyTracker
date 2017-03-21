@@ -18,11 +18,13 @@ public class SkillManPage extends VerticalLayout{
     private ListSelect skillList;
     private UserRepositoryInterface userRepo;
     private SkillRepositoryInterface skillRepo;
+    private LearningMaterialRepositoryInterface materialRepo;
 
-    public SkillManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepositoryInterface) {
+    public SkillManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface materialRepo) {
 
         this.userRepo = userRepo;
         this.skillRepo = skillRepositoryInterface;
+        this.materialRepo = materialRepo;
 
         HorizontalLayout skillLayout = new HorizontalLayout();
 
@@ -93,21 +95,30 @@ public class SkillManPage extends VerticalLayout{
         TextArea materialTextArea = new TextArea("Learning Materials associated to this skill:");
 
         String materialString = "";
-
         Skill skill = skillRepo.getSkillByName((String)skillList.getValue());
+        List<LearningMaterial> learningMaterials = materialRepo.getAllLearningMaterials();
 
-        for(LearningMaterial material : skill.getLearningMaterials()) {
-            materialString = materialString + material.getName() + "\n";
+        for(LearningMaterial material : learningMaterials) {
+            for (Skill s : material.getSkillList()){
+                if (s.getName().equals(skill.getName())){
+                    materialString = materialString + material.getName() + "\n";
+                }
+            }
         }
 
         String userString = "";
 
         ArrayList<User> addedUsers = new ArrayList<User>();
-        for(LearningMaterial material: skill.getLearningMaterials()) {
-            for(User user : userRepo.getUsersByLearningMaterial(material)) {
-                if(!addedUsers.contains(user)) {
-                    addedUsers.add(user);
-                    userString = userString + user.getUsername() + "\n";
+        for(LearningMaterial material: learningMaterials) {
+            for (Skill s : material.getSkillList()){
+                if(s.getName().equals(skill.getName())) {
+                    for (User user : userRepo.getUsersByLearningMaterial(material)) {
+                        if (!addedUsers.contains(user)) {
+                            addedUsers.add(user);
+                            userString = userString + user.getUsername() + "\n";
+                        }
+                    }
+                    break;
                 }
             }
         }

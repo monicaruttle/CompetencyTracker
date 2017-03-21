@@ -38,7 +38,7 @@ public class RemoveMaterialFromSkillListener implements Button.ClickListener {
         }
 
         for (LearningMaterial material : learningMaterials) {
-            skill.removeLearningMaterial(material);
+            material.removeSkill(skill);
         }
 
         skillRepo.updateSkill(skill);

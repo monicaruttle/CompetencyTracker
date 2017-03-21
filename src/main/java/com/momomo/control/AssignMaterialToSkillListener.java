@@ -41,19 +41,19 @@ public class AssignMaterialToSkillListener implements Button.ClickListener {
         boolean alreadyAdded = false;
 
         for (LearningMaterial material : learningMaterials) {
-            if(skill.getLearningMaterials().contains(material)) {
+            if(material.containsSkill(skill)) {
                 alreadyAddedMaterials.add(material.getName());
                 alreadyAdded = true;
             }
             else {
-                skill.addLearningMaterial(material);
+                material.addSkill(skill);
             }
+            materialRepo.updateLearningMaterial(material);
         }
 
         if(alreadyAdded) {
             Notification.show("Skill Already Has Learning Materials","The skill already has learned the following materials: " + String.join(",", alreadyAddedMaterials), Notification.Type.ERROR_MESSAGE);
         }
-
         skillRepo.updateSkill(skill);
 
     }

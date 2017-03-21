@@ -19,15 +19,17 @@ public class AddUserEventListener implements Button.ClickListener{
     private final UserManPage page;
     private TextField userNameField;
     private TextField fullNameField;
+    private TextField passwordField;
     private ComboBox cmbRole;
     private Window popup;
 
     //Pass in text fields to get values at moment of click
-    public AddUserEventListener(UserRepositoryInterface userRepo, UserManPage page, TextField userNameField, TextField fullNameField, ComboBox cmbRole, Window popup) {
+    public AddUserEventListener(UserRepositoryInterface userRepo, UserManPage page, TextField userNameField, TextField fullNameField, TextField passwordField, ComboBox cmbRole, Window popup) {
         this.userRepo = userRepo;
         this.page = page;
         this.userNameField = userNameField;
         this.fullNameField = fullNameField;
+        this.passwordField = passwordField;
         this.cmbRole = cmbRole;
         this.popup = popup;
     }
@@ -38,15 +40,18 @@ public class AddUserEventListener implements Button.ClickListener{
         if (cmbRole.getValue() == null) {
             Notification.show("User role field cannot be empty");
             return;
-        } else if (fullNameField.getValue() == null) {
+        } else if (fullNameField.getValue().equals("")) {
             Notification.show("Name field cannot be empty");
             return;
-        } else if (userNameField.getValue() == null) {
+        } else if (userNameField.getValue().equals("")) {
             Notification.show("Username field cannot be empty");
+            return;
+        } else if (passwordField.getValue().equals("")) {
+            Notification.show("Password field cannot be empty");
             return;
         }
 
-        if(!userRepo.addUser(new User(userNameField.getValue(), fullNameField.getValue(), (Role)cmbRole.getValue()))){
+        if(!userRepo.addUser(new User(userNameField.getValue(), fullNameField.getValue(), passwordField.getValue(), (Role)cmbRole.getValue()))){
             Notification.show("User Already Exists","The Username you entered is already taken", Notification.Type.ERROR_MESSAGE);
         }
 

@@ -23,14 +23,16 @@ public class User {
     private List<LearningMaterial> learningMaterials;
     private String name;
     private Role role;
+    private String password;
 
     public User() {
         this.learningMaterials = new ArrayList<>();
     }
 
-    public User(String username, String name, Role role) {
+    public User(String username, String name, String password, Role role) {
         this.username = username;
         this.name = name;
+        this.password = password;
         this.role = role;
 
         this.learningMaterials = new ArrayList<>();

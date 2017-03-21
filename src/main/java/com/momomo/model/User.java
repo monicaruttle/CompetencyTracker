@@ -22,14 +22,16 @@ public class User {
     @JoinTable
     private List<LearningMaterial> learningMaterials;
     private String name;
+    private Role role;
 
     public User() {
         this.learningMaterials = new ArrayList<>();
     }
 
-    public User(String username, String name) {
+    public User(String username, String name, Role role) {
         this.username = username;
         this.name = name;
+        this.role = role;
 
         this.learningMaterials = new ArrayList<>();
     }
@@ -51,6 +53,5 @@ public class User {
         User user = (User) obj;
 
         return user.getUsername().equals(this.getUsername());
-
     }
 }

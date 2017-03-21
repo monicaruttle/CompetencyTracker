@@ -2,10 +2,13 @@ package com.momomo.view;
 
 import com.momomo.control.*;
 import com.momomo.model.LearningMaterial;
+import com.momomo.model.Role;
 import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -70,8 +73,15 @@ public class UserManPage extends VerticalLayout{
         TextField userNameField = new TextField("Username");
         TextField fullNameField = new TextField("Full Name");
 
+        // Selecting the user role
+        List<Role> roles = new ArrayList<>();
+        roles.addAll(EnumSet.allOf(Role.class));
+        ComboBox cmbRole = new ComboBox("User Role");
+        cmbRole.addItems(roles);
+
         popupContent.addComponent(userNameField);
         popupContent.addComponent(fullNameField);
+        popupContent.addComponent(cmbRole);
         Button btn = new Button("Submit");
         popupContent.addComponent(btn);
         popupContent.setVisible(true);
@@ -79,7 +89,7 @@ public class UserManPage extends VerticalLayout{
         // The component itself
         Window w = new Window();
         w.setContent(popupContent);
-        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField, w));
+        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField, cmbRole, w));
         this.getUI().addWindow(w);
 
     }
@@ -117,6 +127,7 @@ public class UserManPage extends VerticalLayout{
 
         popupContent.addComponent(new Label("Username: " + user.getUsername()));
         popupContent.addComponent(new Label("Full Name: " + user.getName()));
+        popupContent.addComponent(new Label("Role: " + user.getRole()));
         popupContent.addComponent(skillTextArea);
         popupContent.addComponent(materialTextArea);
         Button btn = new Button("OK");

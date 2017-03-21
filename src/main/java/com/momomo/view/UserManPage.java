@@ -72,6 +72,7 @@ public class UserManPage extends VerticalLayout{
         VerticalLayout popupContent = new VerticalLayout();
         TextField userNameField = new TextField("Username");
         TextField fullNameField = new TextField("Full Name");
+        TextField passwordField = new TextField("Password");
 
         // Selecting the user role
         List<Role> roles = new ArrayList<>();
@@ -81,6 +82,7 @@ public class UserManPage extends VerticalLayout{
 
         popupContent.addComponent(userNameField);
         popupContent.addComponent(fullNameField);
+        popupContent.addComponent(passwordField);
         popupContent.addComponent(cmbRole);
         Button btn = new Button("Submit");
         popupContent.addComponent(btn);
@@ -89,7 +91,7 @@ public class UserManPage extends VerticalLayout{
         // The component itself
         Window w = new Window();
         w.setContent(popupContent);
-        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField, cmbRole, w));
+        btn.addClickListener(new AddUserEventListener(userRepo, this, userNameField, fullNameField, passwordField, cmbRole, w));
         this.getUI().addWindow(w);
 
     }

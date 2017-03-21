@@ -4,7 +4,17 @@ package com.momomo.model;
  * Created by Monica on 2017-03-20.
  */
 public enum Role {
-    ADMIN, ACCESSOR, BASIC;
+    ADMIN(1), ACCESSOR(2), BASIC(3);
+
+    private int level;
+
+    Role(int level) {
+        this.level = level;
+    }
+
+    public int getNumVal() {
+        return level;
+    }
 
     @Override
     public String toString(){

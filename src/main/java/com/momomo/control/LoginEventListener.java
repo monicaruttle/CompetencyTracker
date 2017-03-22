@@ -33,15 +33,9 @@ public class LoginEventListener implements Button.ClickListener {
         User user = userRepositoryInterface.getUserByUserName(username.getValue());
         Notification error;
 
-        if (user == null) {
-            error = new Notification("Username does not exist");
-            error.setDelayMsec(5000);
-            error.show(Page.getCurrent());
-            return;
-        }
-        else if (!user.getPassword().equals(password.getValue())) {
-            error = new Notification("Incorrect password");
-            error.setDelayMsec(5000);
+        if (user == null || !user.getPassword().equals(password.getValue())) {
+            error = new Notification("Username or password is incorrect");
+            error.setDelayMsec(2000);
             error.show(Page.getCurrent());
             return;
         }

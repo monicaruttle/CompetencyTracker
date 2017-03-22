@@ -115,6 +115,16 @@ public class UserRepositoryInterfaceTest {
         } catch(Exception e) {
 
         }
+        try {
+            materialRepo.removeLearningMaterial("BOOK");
+        } catch (Exception ignored){
+
+        }
+        try {
+            materialRepo.removeLearningMaterial("CD");
+        } catch (Exception ignored){
+
+        }
     }
 
 }

@@ -71,8 +71,16 @@ public class UserManPage extends VerticalLayout{
         // Content for the PopupView
         VerticalLayout popupContent = new VerticalLayout();
         TextField userNameField = new TextField("Username");
+        userNameField.addValidator(new UsernameValidator("Invalid Username"));
+        userNameField.setDescription("Must be at least 5 characters");
         TextField fullNameField = new TextField("Full Name");
         TextField passwordField = new TextField("Password");
+        passwordField.addValidator(new PasswordValidator("Invalid Password"));
+        passwordField.setDescription(
+                "1) Must contain at least one uppercase\n" +
+                "2) Must contain at least one lowercase\n" +
+                "3) Must contain at least one character\n" +
+                "4) Must be between 8 and 15 characters");
 
         // Selecting the user role
         List<Role> roles = new ArrayList<>();

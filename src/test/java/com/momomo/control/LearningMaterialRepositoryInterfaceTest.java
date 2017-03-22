@@ -3,6 +3,7 @@ package com.momomo.control;
 import com.momomo.model.LearningMaterial;
 import com.momomo.model.LearningMaterialRepository;
 import com.momomo.model.MaterialType;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +41,7 @@ public class LearningMaterialRepositoryInterfaceTest {
         assert(materialRepo.getAllLearningMaterials().contains(material1));
     }
 
-    @Test
+
     public void getAllLearningMaterialsTest() {
         materialRepo.addLearningMaterial(material1);
         materialRepo.addLearningMaterial(material2);
@@ -48,7 +49,7 @@ public class LearningMaterialRepositoryInterfaceTest {
         assert(materialRepo.getAllLearningMaterials().contains(material2));
     }
 
-    @Test
+
     public void removeLearningMaterialTest() {
         this.materialRepo.addLearningMaterial(material1);
         assert(materialRepo.getAllLearningMaterials().contains(material1));
@@ -56,19 +57,34 @@ public class LearningMaterialRepositoryInterfaceTest {
         assertEquals(false, materialRepo.getAllLearningMaterials().contains(material1));
     }
 
-    @Test
+
     public void getLearningMaterialByNameTest() {
         this.materialRepo.addLearningMaterial(material1);
         assertEquals(material1, materialRepo.getLearningMaterialByName("BOOK"));
     }
 
-    @Test
+
     public void updateMaterialTest() {
+        material1.setType(MaterialType.BOOK);
         this.materialRepo.addLearningMaterial(material1);
         assertEquals(MaterialType.BOOK, materialRepo.getLearningMaterialByName("BOOK").getType());
         material1.setType(MaterialType.COURSE);
         materialRepo.updateLearningMaterial(material1);
         assertEquals(MaterialType.COURSE, materialRepo.getLearningMaterialByName("BOOK").getType());
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            materialRepo.removeLearningMaterial(material1.getName());
+        } catch(Exception e) {
+
+        }
+        try {
+            materialRepo.removeLearningMaterial(material2.getName());
+        } catch(Exception e) {
+
+        }
     }
 
 }

@@ -28,19 +28,18 @@ public class LoginPage extends VerticalLayout{
     public LoginPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, MainPage mainPage) {
 
         this.mainPage = mainPage;
+        mainPage.setMenuBarVisible(false);
 
         // Create the user input field
         username = new TextField("User:");
         username.setWidth("300px");
         username.setRequired(true);
-        username.setInputPrompt("Your username (eg. joe@email.com)");
-        username.addValidator(new EmailValidator("Username must be an email address"));
+        username.setInputPrompt("Your username");
         this.addComponent(username);
 
         // Create the password input field
         password = new PasswordField("Password:");
         password.setWidth("300px");
-        password.addValidator(new PasswordValidator("Invalid Password"));
         password.setRequired(true);
         password.setValue("");
         password.setNullRepresentation("");
@@ -48,7 +47,7 @@ public class LoginPage extends VerticalLayout{
 
         loginBtn = new Button("Login");
         loginBtn.setWidth("300px");
-        loginBtn.addClickListener(new LoginEventListener(username.getValue(), password.getValue(), userRepositoryInterface, skillRepositoryInterface, mainPage));
+        loginBtn.addClickListener(new LoginEventListener(username, password, userRepositoryInterface, skillRepositoryInterface, mainPage));
         this.addComponent(loginBtn);
     }
 }

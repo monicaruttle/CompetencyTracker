@@ -1,14 +1,19 @@
 package com.momomo.view;
 
 import com.momomo.control.*;
+import com.momomo.model.Role;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Charberg on 2/19/2017.
  */
+@Getter
+@Setter
 @SpringUI
 @org.springframework.stereotype.Component
 public class MainPage extends UI {
@@ -21,6 +26,8 @@ public class MainPage extends UI {
     private MenuBar.MenuItem skillBar;
     private MenuBar.MenuItem materialBar;
     private VerticalLayout layout = new VerticalLayout();
+
+    private Role currentUserRole;
 
     @Autowired
     public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
@@ -59,6 +66,10 @@ public class MainPage extends UI {
 
     public VerticalLayout getPageLayoutElement() {
         return this.layout;
+    }
+
+    public void setMenuBarVisible(boolean visible) {
+        menuBar.setVisible(visible);
     }
 
 

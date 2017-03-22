@@ -38,7 +38,7 @@ public class UserTest {
 
     @Before
     public void setUp() {
-        this.user = new User("TestUser", "TestName", "test", Role.ACCESSOR);
+        this.user = new User("TestUser", "TestName", "test", Role.ASSESSOR);
     }
 
 }

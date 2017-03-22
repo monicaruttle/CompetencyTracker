@@ -17,14 +17,12 @@ public class LoginEventListener implements Button.ClickListener {
     private TextField username;
     private PasswordField password;
     private UserRepositoryInterface userRepositoryInterface;
-    private SkillRepositoryInterface skillRepositoryInterface;
     private MainPage mainPage;
 
-    public LoginEventListener(TextField username, PasswordField password, UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, MainPage mainPage){
+    public LoginEventListener(TextField username, PasswordField password, UserRepositoryInterface userRepositoryInterface, MainPage mainPage){
         this.username = username;
         this.password = password;
         this.userRepositoryInterface = userRepositoryInterface;
-        this.skillRepositoryInterface = skillRepositoryInterface;
         this.mainPage = mainPage;
     }
 
@@ -40,9 +38,8 @@ public class LoginEventListener implements Button.ClickListener {
             return;
         }
 
-        mainPage.setCurrentUserRole(user.getRole());
-        mainPage.setMenuBarVisible(true);
+        PrivilegeManager.SetVisibilities(user.getRole(), mainPage);
 
-        mainPage.changeLayout(new UserManPage(userRepositoryInterface, skillRepositoryInterface));
+        mainPage.changeLayout(mainPage.getUserManPage());
     }
 }

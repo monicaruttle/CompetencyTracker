@@ -20,6 +20,9 @@ public class UserManPage extends VerticalLayout{
     private UserRepositoryInterface userRepo;
     private SkillRepositoryInterface skillRepo;
 
+    private Button addUserBtn;
+    private Button removeUserBtn;
+
     public UserManPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepo) {
         this.userRepo = userRepositoryInterface;
         this.skillRepo = skillRepo;
@@ -38,8 +41,8 @@ public class UserManPage extends VerticalLayout{
         Panel userBtnPanel = new Panel();
         FormLayout userBtnLayout = new FormLayout();
 
-        Button addUserBtn = new Button("Add User");
-        Button removeUserBtn = new Button("Remove User");
+        addUserBtn = new Button("Add User");
+        removeUserBtn = new Button("Remove User");
         Button inspectUserBtn = new Button("Inspect User");
 
         userList = new ListSelect();
@@ -158,8 +161,12 @@ public class UserManPage extends VerticalLayout{
         for(User user: users) {
             userList.addItem(user.getUsername());
         }
-
     }
 
+    public void setUserCreationVisibility(boolean visibility)
+    {
+        removeUserBtn.setVisible(visibility);
+        addUserBtn.setVisible(visibility);
+    }
 
 }

@@ -21,10 +21,21 @@ public class MainPage extends UI {
     private final UserRepositoryInterface userRepo;
     private final SkillRepositoryInterface skillRepo;
     private final LearningMaterialRepositoryInterface materialRepo;
+    //Level 1 MenuBar
     private MenuBar menuBar = new MenuBar();
+
+    //Level 2 MenuItems
     private MenuBar.MenuItem userBar;
     private MenuBar.MenuItem skillBar;
     private MenuBar.MenuItem materialBar;
+
+    //Sub-pages
+    private UserManPage userManPage;
+    private SkillManPage skillManPage;
+    private AssignSubSkillsPage assignSubSkillsPage;
+    private LearningMaterialManPage learningMaterialManPage;
+    private AssignLearningMaterialsPage assignLearningMaterialsPage;
+
     private VerticalLayout layout = new VerticalLayout();
 
     private Role currentUserRole;
@@ -41,27 +52,29 @@ public class MainPage extends UI {
 
         menuBar.setWidth(100, Unit.PERCENTAGE);
         userBar = menuBar.addItem("User Management", null);
-        userBar.addItem("Add/Remove Users", (MenuBar.Command) selectedItem -> this.changeLayout(new UserManPage(userRepo, skillRepo)));
+        userManPage = new UserManPage(userRepo, skillRepo);
+        userBar.addItem("Add/Remove/Inspect Users", (MenuBar.Command) selectedItem -> this.changeLayout(userManPage));
 
         skillBar = menuBar.addItem("Skill Management", null);
-        skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(new SkillManPage(userRepo, skillRepo, materialRepo)));
-        skillBar.addItem("Assign Subskills", (MenuBar.Command) selectedItem -> this.changeLayout(new AssignSubSkillsPage(skillRepo)));
+        skillManPage = new SkillManPage(userRepo, skillRepo, materialRepo);
+        skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(skillManPage));
+        assignSubSkillsPage = new AssignSubSkillsPage(skillRepo);
+        skillBar.addItem("Assign Subskills", (MenuBar.Command) selectedItem -> this.changeLayout(assignSubSkillsPage));
 
         materialBar = menuBar.addItem("Learning Material Management", null);
-        materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new LearningMaterialManPage(userRepo, skillRepo, materialRepo)));
-        materialBar.addItem("Assign Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo)));
+        learningMaterialManPage = new LearningMaterialManPage(userRepo, skillRepo, materialRepo);
+        materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(learningMaterialManPage));
+        assignLearningMaterialsPage = new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo);
+        materialBar.addItem("Assign Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(assignLearningMaterialsPage));
         layout.addComponent(menuBar);
         layout.addComponent(new LoginPage(this.userRepo, this.skillRepo, this));
         this.setContent(layout);
     }
 
     public void changeLayout(Layout layout) {
-
         this.layout.removeAllComponents();
         this.layout.addComponent(this.menuBar);
         this.layout.addComponent(layout);
-
-
     }
 
     public VerticalLayout getPageLayoutElement() {
@@ -72,6 +85,8 @@ public class MainPage extends UI {
         menuBar.setVisible(visible);
     }
 
-
+    public void setUserCreationVisibility(boolean visible) {
+        userManPage.setUserCreationVisibility(visible);
+    }
     //TODO method to gray out remove buttons when respective lists are empty
 }

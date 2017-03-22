@@ -31,18 +31,6 @@ public class SkillTest {
     }
 
     @Test
-    public void containsLearningMaterial() throws Exception {
-        juggling.addLearningMaterial(conference);
-        assertTrue(juggling.containsLearningMaterial(conference));
-    }
-
-    @Test
-    public void addLearningMaterial() throws Exception {
-        juggling.addLearningMaterial(conference);
-        assertTrue(juggling.containsLearningMaterial(conference));
-    }
-
-    @Test
     public void containsSubSkill() throws Exception {
         juggling.addSubSkill(coordination);
         performing.addSubSkill(juggling);
@@ -85,12 +73,6 @@ public class SkillTest {
     }
 
     @Test
-    public void getLearningMaterials() throws Exception {
-        performing.addLearningMaterial(book);
-        assertTrue(performing.containsLearningMaterial(book));
-    }
-
-    @Test
     public void setName() throws Exception {
         performing.setName("Test");
         assertTrue(performing.getName().equals("Test"));
@@ -101,13 +83,6 @@ public class SkillTest {
         List<Skill> test = new ArrayList<>();
         performing.setSubSkills(test);
         assertTrue(performing.getSubSkills().equals(test));
-    }
-
-    @Test
-    public void setLearningMaterials() throws Exception {
-        List<LearningMaterial> test = new ArrayList<>();
-        performing.setLearningMaterials(test);
-        assertTrue(performing.getLearningMaterials().equals(test));
     }
 
 }

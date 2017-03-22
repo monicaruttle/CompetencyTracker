@@ -105,7 +105,7 @@ public class LearningMaterialManPage extends VerticalLayout {
 
         String skillString = "";
 
-        for(Skill skill : skillRepo.getSkillsByLearningMaterial(materialRepo.getLearningMaterialByName((String)learningMaterialList.getValue()))) {
+        for(Skill skill : materialRepo.getLearningMaterialByName((String)learningMaterialList.getValue()).getSkillList()) {
             skillString = skillString + skill.getName() + "\n";
         }
 

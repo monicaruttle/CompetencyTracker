@@ -61,15 +61,4 @@ public class SkillRepositoryInterface {
         return repo.findByName(name);
     }
 
-    public List<Skill> getSkillsByLearningMaterial(LearningMaterial material) {
-        ArrayList<Skill> list = new ArrayList<Skill>();
-        Iterable<Skill> iter = repo.findAll();
-        for(Skill skill: iter) {
-            if(skill.getLearningMaterials().contains(material)) {
-                list.add(skill);
-            }
-        }
-        return list;
-    }
-
 }

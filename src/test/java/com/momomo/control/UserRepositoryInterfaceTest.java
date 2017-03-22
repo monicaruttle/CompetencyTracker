@@ -1,6 +1,7 @@
 package com.momomo.control;
 
 import com.momomo.model.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -100,6 +101,30 @@ public class UserRepositoryInterfaceTest {
         user1.setPassword("hunter2");
         userRepo.updateUser(user1);
         assertEquals("hunter2", userRepo.getUserByUserName("username").getPassword());
+    }
+
+    @After
+    public void tearDown() {
+        try {
+            userRepo.removeUser(user1.getUsername());
+        } catch(Exception e) {
+
+        }
+        try {
+            userRepo.removeUser(user2.getUsername());
+        } catch(Exception e) {
+
+        }
+        try {
+            materialRepo.removeLearningMaterial("BOOK");
+        } catch (Exception ignored){
+
+        }
+        try {
+            materialRepo.removeLearningMaterial("CD");
+        } catch (Exception ignored){
+
+        }
     }
 
 }

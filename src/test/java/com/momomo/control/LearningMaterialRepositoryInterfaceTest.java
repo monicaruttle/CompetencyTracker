@@ -41,7 +41,7 @@ public class LearningMaterialRepositoryInterfaceTest {
         assert(materialRepo.getAllLearningMaterials().contains(material1));
     }
 
-
+    @Test
     public void getAllLearningMaterialsTest() {
         materialRepo.addLearningMaterial(material1);
         materialRepo.addLearningMaterial(material2);
@@ -49,7 +49,7 @@ public class LearningMaterialRepositoryInterfaceTest {
         assert(materialRepo.getAllLearningMaterials().contains(material2));
     }
 
-
+    @Test
     public void removeLearningMaterialTest() {
         this.materialRepo.addLearningMaterial(material1);
         assert(materialRepo.getAllLearningMaterials().contains(material1));
@@ -57,13 +57,13 @@ public class LearningMaterialRepositoryInterfaceTest {
         assertEquals(false, materialRepo.getAllLearningMaterials().contains(material1));
     }
 
-
+    @Test
     public void getLearningMaterialByNameTest() {
         this.materialRepo.addLearningMaterial(material1);
         assertEquals(material1, materialRepo.getLearningMaterialByName("BOOK"));
     }
 
-
+    @Test
     public void updateMaterialTest() {
         material1.setType(MaterialType.BOOK);
         this.materialRepo.addLearningMaterial(material1);

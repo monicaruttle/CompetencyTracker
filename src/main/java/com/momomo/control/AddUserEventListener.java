@@ -43,11 +43,14 @@ public class AddUserEventListener implements Button.ClickListener{
         } else if (fullNameField.getValue().equals("")) {
             Notification.show("Name field cannot be empty");
             return;
-        } else if (userNameField.getValue().equals("")) {
-            Notification.show("Username field cannot be empty");
+        } else if (!userNameField.isValid() && !passwordField.isValid()) {
+            Notification.show("Invalid Username and Password");
             return;
-        } else if (passwordField.getValue().equals("")) {
-            Notification.show("Password field cannot be empty");
+        } else if (!passwordField.isValid()) {
+            Notification.show("Invalid Password");
+            return;
+        } else if (!userNameField.isValid()) {
+            Notification.show("Invalid Username");
             return;
         }
 

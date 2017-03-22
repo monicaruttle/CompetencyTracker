@@ -17,7 +17,7 @@ import javax.servlet.ServletConfig;
 
 import static org.junit.Assert.*;
 /**
- * Created by puih123 on 2017-03-21.
+ * Created by charberg on 2017-03-21.
  */
 
 @SpringBootTest

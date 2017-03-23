@@ -124,7 +124,7 @@ public class UserManPage extends VerticalLayout{
             materialString = materialString + material.getName() + "\n";
 
             for(Skill skill : material.getSkillList()) {
-                skillString = skillString + skill.getName() + "\n";
+                skillString = skillStringRecursion(skillString, skill);
             }
         }
 
@@ -149,6 +149,14 @@ public class UserManPage extends VerticalLayout{
         w.setContent(popupContent);
         btn.addClickListener(e -> this.getUI().removeWindow(w));
         this.getUI().addWindow(w);
+    }
+
+    private String skillStringRecursion(String skillString, Skill skill){
+        skillString = skillString + skill.getName() + "\n";
+        for (Skill s : skill.getSubSkills()){
+            skillString = skillStringRecursion(skillString, s);
+        }
+        return skillString;
     }
 
     public void updateUsersList(List<User> users) {

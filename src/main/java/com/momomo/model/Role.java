@@ -4,7 +4,7 @@ package com.momomo.model;
  * Created by Monica on 2017-03-20.
  */
 public enum Role {
-    ADMIN(1), ACCESSOR(2), BASIC(3);
+    ADMIN(3), ASSESSOR(2), BASIC(1);
 
     private int level;
 
@@ -21,8 +21,8 @@ public enum Role {
         switch(this){
             case ADMIN:
                 return "Administrator";
-            case ACCESSOR:
-                return "Accessor";
+            case ASSESSOR:
+                return "Assessor";
             case BASIC:
                 return "Basic";
         }

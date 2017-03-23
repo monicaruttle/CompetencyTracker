@@ -28,7 +28,7 @@ public class LoginPage extends VerticalLayout{
     public LoginPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, MainPage mainPage) {
 
         this.mainPage = mainPage;
-        mainPage.setMenuBarVisible(false);
+        mainPage.getMenuBar().setVisible(false);
 
         // Create the user input field
         username = new TextField("User:");
@@ -47,7 +47,7 @@ public class LoginPage extends VerticalLayout{
 
         loginBtn = new Button("Login");
         loginBtn.setWidth("300px");
-        loginBtn.addClickListener(new LoginEventListener(username, password, userRepositoryInterface, skillRepositoryInterface, mainPage));
+        loginBtn.addClickListener(new LoginEventListener(username, password, userRepositoryInterface, mainPage));
         this.addComponent(loginBtn);
     }
 }

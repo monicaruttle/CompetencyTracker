@@ -3,6 +3,7 @@ package com.momomo.control;
         import com.momomo.model.User;
         import com.momomo.view.MainPage;
         import com.momomo.view.UserManPage;
+        import com.vaadin.server.Page;
         import com.vaadin.ui.*;
         import lombok.Getter;
         import lombok.NoArgsConstructor;
@@ -33,7 +34,14 @@ public class RemoveUserEventListener implements Button.ClickListener{
     // The listener method implementation
     public void buttonClick(Button.ClickEvent event) {
         String val = (String)list.getValue();
-        userRepo.removeUser((String)list.getValue());
+        User user = userRepo.getUserByUserName(val);
+        if (user.equals(page.getCurrentUser())){
+            Notification notification = new Notification("Cannot remove current user");
+            notification.setDelayMsec(2000);
+            notification.show(Page.getCurrent());
+            return;
+        }
+        userRepo.removeUser(val);
         page.updateUsersList(userRepo.getAllUsers());
     }
 

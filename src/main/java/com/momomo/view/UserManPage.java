@@ -6,14 +6,19 @@ import com.momomo.model.Role;
 import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
 /**
+/**
  * Created by Charberg on 3/5/2017.
  */
+@Getter
+@Setter
 public class UserManPage extends VerticalLayout{
 
     private ListSelect userList;
@@ -22,6 +27,8 @@ public class UserManPage extends VerticalLayout{
 
     private Button addUserBtn;
     private Button removeUserBtn;
+
+    private User currentUser;
 
     public UserManPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepo) {
         this.userRepo = userRepositoryInterface;
@@ -168,5 +175,4 @@ public class UserManPage extends VerticalLayout{
         removeUserBtn.setVisible(visibility);
         addUserBtn.setVisible(visibility);
     }
-
 }

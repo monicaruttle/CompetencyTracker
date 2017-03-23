@@ -40,6 +40,9 @@ public class LoginEventListener implements Button.ClickListener {
 
         PrivilegeManager.SetVisibilities(user.getRole(), mainPage);
 
+        mainPage.setCurrentUser(user);
+        mainPage.getUserManPage().setCurrentUser(user);
+
         mainPage.changeLayout(mainPage.getUserManPage());
     }
 }

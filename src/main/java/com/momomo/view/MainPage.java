@@ -2,6 +2,7 @@ package com.momomo.view;
 
 import com.momomo.control.*;
 import com.momomo.model.Role;
+import com.momomo.model.User;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
@@ -28,6 +29,7 @@ public class MainPage extends UI {
     private MenuBar.MenuItem userBar;
     private MenuBar.MenuItem skillBar;
     private MenuBar.MenuItem materialBar;
+    private MenuBar.MenuItem logOut;
 
     //Sub-pages
     private UserManPage userManPage;
@@ -38,7 +40,7 @@ public class MainPage extends UI {
 
     private VerticalLayout layout = new VerticalLayout();
 
-    private Role currentUserRole;
+    private User currentUser;
 
     @Autowired
     public MainPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
@@ -66,6 +68,9 @@ public class MainPage extends UI {
         materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(learningMaterialManPage));
         assignLearningMaterialsPage = new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo);
         materialBar.addItem("Assign Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(assignLearningMaterialsPage));
+
+        menuBar.addItem("Log out", x -> this.changeLayout(new LoginPage(userRepo, skillRepo, this)));
+
         layout.addComponent(menuBar);
         layout.addComponent(new LoginPage(this.userRepo, this.skillRepo, this));
         this.setContent(layout);
@@ -81,12 +86,15 @@ public class MainPage extends UI {
         return this.layout;
     }
 
-    public void setMenuBarVisible(boolean visible) {
-        menuBar.setVisible(visible);
-    }
-
     public void setUserCreationVisibility(boolean visible) {
         userManPage.setUserCreationVisibility(visible);
+    }
+
+    public void setMenuBarVisibility(boolean value) {
+        menuBar.setVisible(true);
+        userBar.setVisible(value);
+        skillBar.setVisible(value);
+        materialBar.setVisible(value);
     }
     //TODO method to gray out remove buttons when respective lists are empty
 }

@@ -26,17 +26,17 @@ public final class PrivilegeManager {
     }
 
     private static void SetBasicVisibility(MainPage mainPage) {
-        mainPage.setMenuBarVisible(false);
+        mainPage.setMenuBarVisibility(false);
         mainPage.setUserCreationVisibility(false);
     }
 
     private static void SetAssessorVisibility(MainPage mainPage) {
-        mainPage.setMenuBarVisible(true);
+        mainPage.setMenuBarVisibility(true);
         mainPage.setUserCreationVisibility(false);
     }
 
     private static void SetAdminVisibility(MainPage mainPage) {
-        mainPage.setMenuBarVisible(true);
+        mainPage.setMenuBarVisibility(true);
         mainPage.setUserCreationVisibility(true);
     }
 }

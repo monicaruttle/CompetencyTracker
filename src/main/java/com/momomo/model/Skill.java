@@ -63,8 +63,7 @@ public class Skill implements Comparable<Skill> {
 
         Collections.sort(s.subSkills);
         Collections.sort(this.subSkills);
-        boolean equalSkills = s.subSkills.equals(this.subSkills);
-
+        boolean equalSkills = s.subSkills.containsAll(this.subSkills) && this.subSkills.containsAll(s.subSkills);
         return (s.name.equals(this.name)) && equalSkills;
     }
 

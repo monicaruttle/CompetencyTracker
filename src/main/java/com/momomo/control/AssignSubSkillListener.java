@@ -26,7 +26,31 @@ public class AssignSubSkillListener implements Button.ClickListener {
 
     @Override
     public void buttonClick(Button.ClickEvent event) {
-        //TODO IMPLEMENT THIS METHOD
-        //TODO ENSURE NO CIRCULAR DEPENDENCIES
+        String skillName = (String) superSkillList.getValue();
+        Skill skill = skillRepo.getSkillByName(skillName);
+
+        ArrayList<Skill> subSkills = new ArrayList<>();
+        Collection<String> subSkillNames = (Collection<String>) subSkillList.getValue();
+        for (String s : subSkillNames){
+            subSkills.add(skillRepo.getSkillByName(s));
+        }
+
+        ArrayList<String> alreadyAddedMaterials = new ArrayList<String>();
+        boolean alreadyAdded = false;
+
+        for (Skill subSkill : subSkills) {
+            if(skill.containsSubSkill(subSkill)) {
+                alreadyAddedMaterials.add(subSkill.getName());
+                alreadyAdded = true;
+            }
+            else {
+                skill.addSubSkill(subSkill);
+            }
+        }
+
+        if(alreadyAdded) {
+            Notification.show("Skill Already Has Sub-Skills ","The skill already has learned the following materials: " + String.join(",", alreadyAddedMaterials), Notification.Type.ERROR_MESSAGE);
+        }
+        skillRepo.updateSkill(skill);
     }
 }

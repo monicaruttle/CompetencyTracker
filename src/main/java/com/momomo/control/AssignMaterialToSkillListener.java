@@ -38,6 +38,7 @@ public class AssignMaterialToSkillListener implements Button.ClickListener {
         }
 
         ArrayList<String> alreadyAddedMaterials = new ArrayList<String>();
+        ArrayList<String> addedMaterials = new ArrayList<String>();
         boolean alreadyAdded = false;
 
         for (LearningMaterial material : learningMaterials) {
@@ -47,14 +48,21 @@ public class AssignMaterialToSkillListener implements Button.ClickListener {
             }
             else {
                 material.addSkill(skill);
+                addedMaterials.add(skill.getName());
             }
             materialRepo.updateLearningMaterial(material);
         }
 
+        String notify = "";
+
         if(alreadyAdded) {
-            Notification.show("Skill Already Has Learning Materials","The skill already has learned the following materials: " + String.join(",", alreadyAddedMaterials), Notification.Type.ERROR_MESSAGE);
+            notify = notify + "The skill already has the following materials assigned: " + String.join(",", alreadyAddedMaterials) + "\n";
         }
+
+        if(addedMaterials.size() > 0) notify = notify + "The skill has now been assigned the following materials: " + String.join(",", addedMaterials);
+
         skillRepo.updateSkill(skill);
+        Notification.show(notify, Notification.Type.WARNING_MESSAGE);
 
     }
 }

@@ -54,7 +54,7 @@ public class AssignLearningMaterialListener implements Button.ClickListener {
         String notify = "";
 
         if(alreadyAdded) {
-            notify = notify + "The user already has learned the following materials: " + String.join(",", alreadyAddedMaterials) + "\n";
+            notify = notify + "The user has already learned the following materials: " + String.join(",", alreadyAddedMaterials) + "\n";
         }
 
         if(addedMaterials.size() > 0) notify = notify + "User has now learned the following materials: " + String.join(",", addedMaterials);

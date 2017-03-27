@@ -85,4 +85,16 @@ public class SkillTest {
         assertTrue(performing.getSubSkills().equals(test));
     }
 
+    @Test
+    public void addSelfSubSkill() throws Exception {
+        assertFalse(coordination.addSubSkill(coordination));
+    }
+
+    @Test
+    public void circularSubSkill() throws Exception {
+        coordination.addSubSkill(juggling);
+        juggling.addSubSkill(performing);
+        assertFalse(performing.addSubSkill(coordination));
+    }
+
 }

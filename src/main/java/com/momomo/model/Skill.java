@@ -37,16 +37,16 @@ public class Skill implements Comparable<Skill> {
         if (subSkills.contains(skill))
             return true;
         for(Skill s:subSkills) {
-            boolean result = s.containsSubSkill(skill);
-            if (result)
+            if (s.containsSubSkill(skill)) {
                 return true;
+            }
         }
 
         return false;
     }
 
     public boolean addSubSkill(Skill skill) {
-        if (!containsSubSkill(skill)) {
+        if (!this.containsSubSkill(skill) && !this.equals(skill) && !skill.containsSubSkill(this)) {
             subSkills.add(skill);
             return true;
         }
@@ -60,11 +60,7 @@ public class Skill implements Comparable<Skill> {
             return true;
 
         Skill s = (Skill)object;
-
-        Collections.sort(s.subSkills);
-        Collections.sort(this.subSkills);
-        boolean equalSkills = s.subSkills.containsAll(this.subSkills) && this.subSkills.containsAll(s.subSkills);
-        return (s.name.equals(this.name)) && equalSkills;
+        return s.name.equals(this.name);
     }
 
     @Override

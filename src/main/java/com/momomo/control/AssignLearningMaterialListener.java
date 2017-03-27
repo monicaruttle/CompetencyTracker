@@ -37,6 +37,7 @@ public class AssignLearningMaterialListener implements Button.ClickListener {
         }
 
         ArrayList<String> alreadyAddedMaterials = new ArrayList<String>();
+        ArrayList<String> addedMaterials = new ArrayList<String>();
         boolean alreadyAdded = false;
 
         for (LearningMaterial material : learningMaterials) {
@@ -46,12 +47,18 @@ public class AssignLearningMaterialListener implements Button.ClickListener {
             }
             else {
                 user.addLearningMaterial(material);
+                addedMaterials.add(material.getName());
             }
         }
 
+        String notify = "";
+
         if(alreadyAdded) {
-            Notification.show("User Already Has Learning Materials","The user already has learned the following materials: " + String.join(",", alreadyAddedMaterials), Notification.Type.ERROR_MESSAGE);
+            notify = notify + "The user has already learned the following materials: " + String.join(",", alreadyAddedMaterials) + "\n";
         }
+
+        if(addedMaterials.size() > 0) notify = notify + "User has now learned the following materials: " + String.join(",", addedMaterials);
+        Notification.show(notify, Notification.Type.WARNING_MESSAGE);
 
         userRepo.updateUser(user);
 

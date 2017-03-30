@@ -2,7 +2,6 @@ package com.momomo.control;
 
 import com.momomo.model.User;
 import com.momomo.view.MainPage;
-import com.momomo.view.UserManPage;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
@@ -14,10 +13,10 @@ import com.vaadin.ui.TextField;
  */
 public class LoginEventListener implements Button.ClickListener {
 
-    private TextField username;
-    private PasswordField password;
-    private UserRepositoryInterface userRepositoryInterface;
-    private MainPage mainPage;
+    private final TextField username;
+    private final PasswordField password;
+    private final UserRepositoryInterface userRepositoryInterface;
+    private final MainPage mainPage;
 
     public LoginEventListener(TextField username, PasswordField password, UserRepositoryInterface userRepositoryInterface, MainPage mainPage){
         this.username = username;

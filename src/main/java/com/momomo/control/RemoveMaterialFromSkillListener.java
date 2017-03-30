@@ -2,10 +2,8 @@ package com.momomo.control;
 
 import com.momomo.model.LearningMaterial;
 import com.momomo.model.Skill;
-import com.momomo.model.User;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.Notification;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,10 +12,10 @@ import java.util.Collection;
  * Created by danielsauve on 2017-03-08.
  */
 public class RemoveMaterialFromSkillListener implements Button.ClickListener {
-    private ListSelect skillList;
-    private ListSelect materialList;
-    private LearningMaterialRepositoryInterface materialRepo;
-    private SkillRepositoryInterface skillRepo;
+    private final ListSelect skillList;
+    private final ListSelect materialList;
+    private final LearningMaterialRepositoryInterface materialRepo;
+    private final SkillRepositoryInterface skillRepo;
 
     public RemoveMaterialFromSkillListener(ListSelect skillList, ListSelect materialList, LearningMaterialRepositoryInterface materialRepo, SkillRepositoryInterface skillRepo) {
         this.skillList = skillList;

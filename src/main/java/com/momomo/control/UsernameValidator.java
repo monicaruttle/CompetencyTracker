@@ -13,9 +13,7 @@ public class UsernameValidator extends AbstractValidator<String>{
 
     @Override
     protected boolean isValidValue(String s) {
-        if (s.length() >= 5)
-            return true;
-        else return false;
+        return s.length() >= 5;
     }
 
     @Override

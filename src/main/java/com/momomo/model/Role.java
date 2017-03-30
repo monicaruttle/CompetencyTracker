@@ -6,7 +6,7 @@ package com.momomo.model;
 public enum Role {
     ADMIN(3), ASSESSOR(2), BASIC(1);
 
-    private int level;
+    private final int level;
 
     Role(int level) {
         this.level = level;

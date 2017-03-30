@@ -6,7 +6,6 @@ import com.momomo.model.Skill;
 import com.momomo.model.User;
 import com.vaadin.ui.*;
 
-import javax.xml.soap.Text;
 import java.util.List;
 
 /**
@@ -14,15 +13,13 @@ import java.util.List;
  */
 public class LearningMaterialManPage extends VerticalLayout {
 
-    private ListSelect learningMaterialList;
-    private UserRepositoryInterface userRepo;
-    private SkillRepositoryInterface skillRepo;
-    private LearningMaterialRepositoryInterface materialRepo;
+    private final ListSelect learningMaterialList;
+    private final UserRepositoryInterface userRepo;
+    private final LearningMaterialRepositoryInterface materialRepo;
 
     public LearningMaterialManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepo, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
 
         this.userRepo = userRepo;
-        this.skillRepo = skillRepo;
         this.materialRepo = learningMaterialRepositoryInterface;
 
         HorizontalLayout materialLayout = new HorizontalLayout();
@@ -84,7 +81,7 @@ public class LearningMaterialManPage extends VerticalLayout {
         this.getUI().addWindow(w);
     }
 
-    public void displayInspectLearningMaterialPopup() {
+    private void displayInspectLearningMaterialPopup() {
 
         if(learningMaterialList.getValue() == null) {
             return;
@@ -97,25 +94,25 @@ public class LearningMaterialManPage extends VerticalLayout {
 
         //Populate skill and user text areas, associated to selected material
 
-        String userString = "";
+        StringBuilder userString = new StringBuilder();
 
         for(User user : userRepo.getUsersByLearningMaterial(materialRepo.getLearningMaterialByName((String)learningMaterialList.getValue()))) {
-            userString = userString + user.getUsername() + "\n";
+            userString.append(user.getUsername()).append("\n");
         }
 
-        String skillString = "";
+        StringBuilder skillString = new StringBuilder();
 
         for(Skill skill : materialRepo.getLearningMaterialByName((String)learningMaterialList.getValue()).getSkillList()) {
-            skillString = skillString + skill.getName() + "\n";
+            skillString.append(skill.getName()).append("\n");
         }
 
-        userTextArea.setValue(userString);
-        skillTextArea.setValue(skillString);
+        userTextArea.setValue(userString.toString());
+        skillTextArea.setValue(skillString.toString());
 
         //Setting to read only must be done AFTER setting value!
         skillTextArea.setReadOnly(true);
         userTextArea.setReadOnly(true);
-        popupContent.addComponent(new Label("Learning Material: " + (String)learningMaterialList.getValue()));
+        popupContent.addComponent(new Label("Learning Material: " + learningMaterialList.getValue()));
         popupContent.addComponent(skillTextArea);
         popupContent.addComponent(userTextArea);
         Button btn = new Button("OK");

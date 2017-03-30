@@ -6,7 +6,6 @@ import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,7 +57,8 @@ public class Skill implements Comparable<Skill> {
     public boolean equals(Object object) {
         if (object == this)
             return true;
-
+        if (!(object instanceof Skill))
+            return false;
         Skill s = (Skill)object;
         return s.name.equals(this.name);
     }

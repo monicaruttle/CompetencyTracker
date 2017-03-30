@@ -1,9 +1,6 @@
 package com.momomo.control;
 
-import com.momomo.model.LearningMaterial;
 import com.momomo.view.LearningMaterialManPage;
-import com.momomo.view.MainPage;
-import com.momomo.view.UserManPage;
 import com.vaadin.ui.Button;
 import lombok.Getter;
 import lombok.Setter;

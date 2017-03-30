@@ -21,11 +21,12 @@ import static org.junit.Assert.assertEquals;
 public class LearningMaterialRepositoryInterfaceTest {
 
     @Autowired
+    private
     LearningMaterialRepository repo;
-    LearningMaterialRepositoryInterface materialRepo;
+    private LearningMaterialRepositoryInterface materialRepo;
 
-    LearningMaterial material1;
-    LearningMaterial material2;
+    private LearningMaterial material1;
+    private LearningMaterial material2;
 
     @Before
     public void setUp() {
@@ -77,12 +78,12 @@ public class LearningMaterialRepositoryInterfaceTest {
     public void tearDown() {
         try {
             materialRepo.removeLearningMaterial(material1.getName());
-        } catch(Exception e) {
+        } catch(Exception ignored) {
 
         }
         try {
             materialRepo.removeLearningMaterial(material2.getName());
-        } catch(Exception e) {
+        } catch(Exception ignored) {
 
         }
     }

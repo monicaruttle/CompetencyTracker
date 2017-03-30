@@ -1,7 +1,6 @@
 package com.momomo.view;
 
 import com.momomo.control.*;
-import com.momomo.model.Role;
 import com.momomo.model.User;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;

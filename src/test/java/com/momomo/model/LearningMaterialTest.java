@@ -13,11 +13,11 @@ import static org.junit.Assert.*;
  */
 public class LearningMaterialTest {
 
-    LearningMaterial material1;
-    LearningMaterial material2;
-    LearningMaterial material3;
-    LearningMaterial material4;
-    Skill skill;
+    private LearningMaterial material1;
+    private LearningMaterial material2;
+    private LearningMaterial material3;
+    private LearningMaterial material4;
+    private Skill skill;
 
     @Before
     public void setUp() throws Exception {

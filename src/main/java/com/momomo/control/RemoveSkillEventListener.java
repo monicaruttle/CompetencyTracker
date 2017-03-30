@@ -1,7 +1,6 @@
 package com.momomo.control;
 
 import com.momomo.view.SkillManPage;
-import com.momomo.view.UserManPage;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ListSelect;
 
@@ -11,7 +10,7 @@ import com.vaadin.ui.ListSelect;
 public class RemoveSkillEventListener implements Button.ClickListener {
     private final SkillRepositoryInterface skillRepo;
     private final SkillManPage page;
-    private ListSelect list;
+    private final ListSelect list;
 
     //Pass in text fields to get values at moment of click
     public RemoveSkillEventListener(SkillRepositoryInterface skillRepo, SkillManPage page, ListSelect list) {

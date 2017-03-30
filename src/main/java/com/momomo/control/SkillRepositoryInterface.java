@@ -38,7 +38,6 @@ public class SkillRepositoryInterface {
 
         repo.delete(name);
 
-        return;
     }
 
     public boolean updateSkill(Skill skill) {

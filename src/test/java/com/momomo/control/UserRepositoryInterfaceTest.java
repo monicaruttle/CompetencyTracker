@@ -6,15 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.servlet.ServletConfig;
 
 import static org.junit.Assert.*;
 /**
@@ -107,12 +100,12 @@ public class UserRepositoryInterfaceTest {
     public void tearDown() {
         try {
             userRepo.removeUser(user1.getUsername());
-        } catch(Exception e) {
+        } catch(Exception ignored) {
 
         }
         try {
             userRepo.removeUser(user2.getUsername());
-        } catch(Exception e) {
+        } catch(Exception ignored) {
 
         }
         try {

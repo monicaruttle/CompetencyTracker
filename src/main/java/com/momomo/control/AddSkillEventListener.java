@@ -2,7 +2,6 @@ package com.momomo.control;
 
 import com.momomo.model.Skill;
 import com.momomo.view.SkillManPage;
-import com.momomo.view.UserManPage;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
@@ -15,8 +14,8 @@ public class AddSkillEventListener implements Button.ClickListener{
 
     private final SkillRepositoryInterface skillRepo;
     private final SkillManPage page;
-    private TextField nameField;
-    private Window popup;
+    private final TextField nameField;
+    private final Window popup;
 
     //Pass in text fields to get values at moment of click
     public AddSkillEventListener(SkillRepositoryInterface skillRepo, SkillManPage page, TextField nameField, Window popup) {

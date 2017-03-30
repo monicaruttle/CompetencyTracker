@@ -13,10 +13,10 @@ import java.util.Collection;
  * Created by danielsauve on 2017-03-08.
  */
 public class AssignLearningMaterialListener implements Button.ClickListener {
-    private ListSelect userList;
-    private ListSelect materialList;
-    private LearningMaterialRepositoryInterface materialRepo;
-    private UserRepositoryInterface userRepo;
+    private final ListSelect userList;
+    private final ListSelect materialList;
+    private final LearningMaterialRepositoryInterface materialRepo;
+    private final UserRepositoryInterface userRepo;
 
     public AssignLearningMaterialListener(ListSelect userList, ListSelect materialList, LearningMaterialRepositoryInterface materialRepo, UserRepositoryInterface userRepo) {
         this.userList = userList;
@@ -36,8 +36,8 @@ public class AssignLearningMaterialListener implements Button.ClickListener {
             learningMaterials.add(materialRepo.getLearningMaterialByName(s));
         }
 
-        ArrayList<String> alreadyAddedMaterials = new ArrayList<String>();
-        ArrayList<String> addedMaterials = new ArrayList<String>();
+        ArrayList<String> alreadyAddedMaterials = new ArrayList<>();
+        ArrayList<String> addedMaterials = new ArrayList<>();
         boolean alreadyAdded = false;
 
         for (LearningMaterial material : learningMaterials) {

@@ -13,21 +13,15 @@ import static org.junit.Assert.*;
  */
 public class SkillTest {
 
-    Skill coordination;
-    Skill juggling;
-    Skill performing;
-
-    LearningMaterial book;
-    LearningMaterial conference;
+    private Skill coordination;
+    private Skill juggling;
+    private Skill performing;
 
     @Before
     public void setUp() throws Exception {
         coordination = new Skill("Coordination");
         juggling = new Skill("Juggling");
         performing = new Skill("Performing");
-
-        book = new LearningMaterial("How to be a performer", MaterialType.BOOK);
-        conference = new LearningMaterial("Jugglers unite", MaterialType.CONFERENCE);
     }
 
     @Test

@@ -114,7 +114,7 @@ public class UserManPage extends VerticalLayout{
 
     }
 
-    public void displayInspectUserPopup() {
+    private void displayInspectUserPopup() {
 
         if(userList.getValue() == null) {
             return;
@@ -127,11 +127,11 @@ public class UserManPage extends VerticalLayout{
 
         User user = userRepo.getUserByUserName((String)userList.getValue());
 
-        String materialString = "";
+        StringBuilder materialString = new StringBuilder();
         String skillString = "";
 
         for(LearningMaterial material : user.getLearningMaterials()) {
-            materialString = materialString + material.getName() + "\n";
+            materialString.append(material.getName()).append("\n");
 
             for(Skill skill : material.getSkillList()) {
                 skillString = skillStringRecursion(skillString, skill);
@@ -139,7 +139,7 @@ public class UserManPage extends VerticalLayout{
         }
 
         skillTextArea.setValue(skillString);
-        materialTextArea.setValue(materialString);
+        materialTextArea.setValue(materialString.toString());
 
         //Setting to read only must be done AFTER setting field content
         skillTextArea.setReadOnly(true);

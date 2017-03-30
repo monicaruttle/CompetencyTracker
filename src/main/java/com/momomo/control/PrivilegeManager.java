@@ -2,15 +2,11 @@ package com.momomo.control;
 
 import com.momomo.model.Role;
 import com.momomo.view.MainPage;
-import com.momomo.view.UserManPage;
-import com.vaadin.ui.MenuBar;
-
-import java.util.List;
 
 /**
  * Created by Monica on 2017-03-22.
  */
-public final class PrivilegeManager {
+final class PrivilegeManager {
 
     public static void SetVisibilities(Role role, MainPage mainPage) {
         switch (role){

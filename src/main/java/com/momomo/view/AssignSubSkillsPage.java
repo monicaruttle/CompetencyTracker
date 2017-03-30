@@ -9,15 +9,12 @@ import java.util.List;
 /**
  * Created by Charberg on 3/5/2017.
  */
-public class AssignSubSkillsPage extends VerticalLayout {
+class AssignSubSkillsPage extends VerticalLayout {
 
-    private ListSelect superSkillList;
-    private ListSelect subSkillList;
-    private SkillRepositoryInterface skillRepo;
-    private HorizontalLayout assignToSkillLayout = new HorizontalLayout();
+    private final ListSelect superSkillList;
+    private final ListSelect subSkillList;
 
     public AssignSubSkillsPage(SkillRepositoryInterface skillRepo) {
-        this.skillRepo = skillRepo;
 
         Label subSkillTitle = new Label("Assign Sub Skills");
         subSkillTitle.addStyleName("h1");
@@ -34,6 +31,7 @@ public class AssignSubSkillsPage extends VerticalLayout {
 
         this.addComponent(subSkillTitle);
         this.addComponent(listTitleLayout);
+        HorizontalLayout assignToSkillLayout = new HorizontalLayout();
         this.addComponent(assignToSkillLayout);
         this.setWidth(100, Unit.PERCENTAGE);
 
@@ -76,7 +74,7 @@ public class AssignSubSkillsPage extends VerticalLayout {
 
 
 
-    public void updateSkillLists(List<Skill> skills) {
+    private void updateSkillLists(List<Skill> skills) {
 
         superSkillList.removeAllItems();
         subSkillList.removeAllItems();

@@ -11,29 +11,22 @@ import java.util.List;
 /**
  * Created by Charberg on 3/5/2017.
  */
-public class AssignLearningMaterialsPage extends VerticalLayout {
+class AssignLearningMaterialsPage extends VerticalLayout {
 
-    private ListSelect userList;
-    private ListSelect skillList;
+    private final ListSelect userList;
+    private final ListSelect skillList;
     //Learning Material List for assigning to user
-    private ListSelect learningMaterialList1;
+    private final ListSelect learningMaterialList1;
     //Learning Material list for assigning to skill
-    private ListSelect learningMaterialList2;
-    private UserRepositoryInterface userRepo;
-    private SkillRepositoryInterface skillRepo;
-    private LearningMaterialRepositoryInterface learningMaterialRepo;
-    private HorizontalLayout assignToUserLayout = new HorizontalLayout();
-    private HorizontalLayout assignToSkillLayout = new HorizontalLayout();
+    private final ListSelect learningMaterialList2;
 
     public AssignLearningMaterialsPage(UserRepositoryInterface userRepositoryInterface, SkillRepositoryInterface skillRepo, LearningMaterialRepositoryInterface learningMaterialRepo) {
-        this.userRepo = userRepositoryInterface;
-        this.skillRepo = skillRepo;
-        this.learningMaterialRepo = learningMaterialRepo;
 
         Label userTitle = new Label("Assign Learning Materials To Users");
         userTitle.addStyleName("h1");
 
         this.addComponent(userTitle);
+        HorizontalLayout assignToUserLayout = new HorizontalLayout();
         this.addComponent(assignToUserLayout);
         this.setWidth(100, Unit.PERCENTAGE);
 
@@ -51,7 +44,7 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         userList.setWidth(100, Unit.PERCENTAGE);
         userList.setNullSelectionAllowed(false);
         userList.setMultiSelect(false);
-        updateUsersList(userRepo.getAllUsers());
+        updateUsersList(userRepositoryInterface.getAllUsers());
 
         learningMaterialList1 = new ListSelect();
         learningMaterialList1.setWidth(100, Unit.PERCENTAGE);
@@ -77,6 +70,7 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
         assignToSkillTitle.addStyleName("h1");
 
         this.addComponent(assignToSkillTitle);
+        HorizontalLayout assignToSkillLayout = new HorizontalLayout();
         this.addComponent(assignToSkillLayout);
 
         assignToSkillLayout.setWidth(50, Unit.PERCENTAGE);
@@ -117,7 +111,7 @@ public class AssignLearningMaterialsPage extends VerticalLayout {
     }
 
 
-    public void updateUsersList(List<User> users) {
+    private void updateUsersList(List<User> users) {
 
         userList.removeAllItems();
 

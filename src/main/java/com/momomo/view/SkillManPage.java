@@ -15,10 +15,10 @@ import java.util.List;
 public class SkillManPage extends VerticalLayout{
 
     private ListSelect userList;
-    private ListSelect skillList;
-    private UserRepositoryInterface userRepo;
-    private SkillRepositoryInterface skillRepo;
-    private LearningMaterialRepositoryInterface materialRepo;
+    private final ListSelect skillList;
+    private final UserRepositoryInterface userRepo;
+    private final SkillRepositoryInterface skillRepo;
+    private final LearningMaterialRepositoryInterface materialRepo;
 
     public SkillManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface materialRepo) {
 
@@ -83,7 +83,7 @@ public class SkillManPage extends VerticalLayout{
         this.getUI().addWindow(w);
     }
 
-    public void displayInspectSkillPopup() {
+    private void displayInspectSkillPopup() {
 
         if(skillList.getValue() == null) {
             return;
@@ -94,28 +94,28 @@ public class SkillManPage extends VerticalLayout{
         TextArea userTextArea = new TextArea("Users with this skill:");
         TextArea materialTextArea = new TextArea("Learning Materials associated to this skill:");
 
-        String materialString = "";
+        StringBuilder materialString = new StringBuilder();
         Skill skill = skillRepo.getSkillByName((String)skillList.getValue());
         List<LearningMaterial> learningMaterials = materialRepo.getAllLearningMaterials();
 
         for(LearningMaterial material : learningMaterials) {
             for (Skill s : material.getSkillList()){
                 if (s.getName().equals(skill.getName())){
-                    materialString = materialString + material.getName() + "\n";
+                    materialString.append(material.getName()).append("\n");
                 }
             }
         }
 
-        String userString = "";
+        StringBuilder userString = new StringBuilder();
 
-        ArrayList<User> addedUsers = new ArrayList<User>();
+        ArrayList<User> addedUsers = new ArrayList<>();
         for(LearningMaterial material: learningMaterials) {
             for (Skill s : material.getSkillList()){
                 if(s.getName().equals(skill.getName())) {
                     for (User user : userRepo.getUsersByLearningMaterial(material)) {
                         if (!addedUsers.contains(user)) {
                             addedUsers.add(user);
-                            userString = userString + user.getUsername() + "\n";
+                            userString.append(user.getUsername()).append("\n");
                         }
                     }
                     break;
@@ -123,13 +123,13 @@ public class SkillManPage extends VerticalLayout{
             }
         }
 
-        userTextArea.setValue(userString);
-        materialTextArea.setValue(materialString);
+        userTextArea.setValue(userString.toString());
+        materialTextArea.setValue(materialString.toString());
 
         //Setting read only must be done AFTER setting text are value
         userTextArea.setReadOnly(true);
         materialTextArea.setReadOnly(true);
-        popupContent.addComponent(new Label("Skill Name: " + (String)skillList.getValue()));
+        popupContent.addComponent(new Label("Skill Name: " + skillList.getValue()));
         popupContent.addComponent(userTextArea);
         popupContent.addComponent(materialTextArea);
         Button btn = new Button("OK");

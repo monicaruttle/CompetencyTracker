@@ -75,6 +75,8 @@ public class LearningMaterialManPage extends VerticalLayout {
         popupContent.addComponent(btn);
         popupContent.setVisible(true);
 
+        nameField.addFocusListener(new EnterListener(btn));
+
         Window w = new Window();
         w.setContent(popupContent);
         btn.addClickListener(new AddLearningMaterialEventListener(this.materialRepo, this, nameField, w));

@@ -77,6 +77,8 @@ public class SkillManPage extends VerticalLayout{
         popupContent.addComponent(btn);
         popupContent.setVisible(true);
 
+        nameField.addFocusListener(new EnterListener(btn));
+
         Window w = new Window();
         w.setContent(popupContent);
         btn.addClickListener(new AddSkillEventListener(skillRepo, this, nameField, w));

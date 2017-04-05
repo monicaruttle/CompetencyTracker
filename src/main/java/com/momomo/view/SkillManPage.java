@@ -20,6 +20,10 @@ public class SkillManPage extends VerticalLayout{
     private final SkillRepositoryInterface skillRepo;
     private final LearningMaterialRepositoryInterface materialRepo;
 
+    private Button addSkillBtn;
+    private Button removeSkillBtn;
+    private Button inspectSkillBtn;
+
     public SkillManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepositoryInterface, LearningMaterialRepositoryInterface materialRepo) {
 
         this.userRepo = userRepo;
@@ -40,9 +44,9 @@ public class SkillManPage extends VerticalLayout{
         Panel skillBtnPanel = new Panel();
         FormLayout skillBtnLayout = new FormLayout();
 
-        Button addSkillBtn = new Button("Add Skill");
-        Button removeSkillBtn = new Button("Remove Skill");
-        Button inspectSkillBtn = new Button("Inspect Skill");
+        addSkillBtn = new Button("Add Skill");
+        removeSkillBtn = new Button("Remove Skill");
+        inspectSkillBtn = new Button("Inspect Skill");
 
         skillList = new ListSelect();
         skillList.setWidth(50, Unit.PERCENTAGE);
@@ -153,6 +157,12 @@ public class SkillManPage extends VerticalLayout{
             skillList.addItem(skill.getName());
         }
 
+    }
+
+    public void setUserCreationVisibility(boolean visibility)
+    {
+        addSkillBtn.setVisible(visibility);
+        removeSkillBtn.setVisible(visibility);
     }
 
 }

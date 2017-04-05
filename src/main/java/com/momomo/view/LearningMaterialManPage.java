@@ -17,6 +17,10 @@ public class LearningMaterialManPage extends VerticalLayout {
     private final UserRepositoryInterface userRepo;
     private final LearningMaterialRepositoryInterface materialRepo;
 
+    private Button addMaterialBtn;
+    private Button removeMaterialBtn;
+    private Button inspectMaterialBtn;
+
     public LearningMaterialManPage(UserRepositoryInterface userRepo, SkillRepositoryInterface skillRepo, LearningMaterialRepositoryInterface learningMaterialRepositoryInterface) {
 
         this.userRepo = userRepo;
@@ -36,9 +40,9 @@ public class LearningMaterialManPage extends VerticalLayout {
         Panel learningMaterialBtnPanel = new Panel();
         FormLayout learningMaterialBtnLayout = new FormLayout();
 
-        Button addMaterialBtn = new Button("Add Learning Material");
-        Button removeMaterialBtn = new Button("Remove Learning Material");
-        Button inspectMaterialBtn = new Button("Inspect Learning Material");
+        addMaterialBtn = new Button("Add Learning Material");
+        removeMaterialBtn = new Button("Remove Learning Material");
+        inspectMaterialBtn = new Button("Inspect Learning Material");
 
         learningMaterialList = new ListSelect();
         learningMaterialList.setWidth(50, Unit.PERCENTAGE);
@@ -139,5 +143,9 @@ public class LearningMaterialManPage extends VerticalLayout {
 
     }
 
-
+    public void setUserCreationVisibility(boolean visibility)
+    {
+        addMaterialBtn.setVisible(visibility);
+        removeMaterialBtn.setVisible(visibility);
+    }
 }

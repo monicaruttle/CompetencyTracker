@@ -1,5 +1,6 @@
 package com.momomo.control;
 
+import com.momomo.model.Role;
 import com.momomo.model.User;
 import com.momomo.view.MainPage;
 import com.vaadin.server.Page;

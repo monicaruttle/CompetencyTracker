@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @org.springframework.stereotype.Component
 public class MainPage extends UI {
 
+    private static final int ASSIGN_SKILL_INDEX = 1;
+    private static final int ASSIGN_MATERIAL_INDEX = 1;
+
     private final UserRepositoryInterface userRepo;
     private final SkillRepositoryInterface skillRepo;
     private final LearningMaterialRepositoryInterface materialRepo;
@@ -58,13 +61,14 @@ public class MainPage extends UI {
 
         skillBar = menuBar.addItem("Skill Management", null);
         skillManPage = new SkillManPage(userRepo, skillRepo, materialRepo);
-        skillBar.addItem("Add/Remove Skills", (MenuBar.Command) selectedItem -> this.changeLayout(skillManPage));
+        skillBar.addItem("Add/Remove/Inspect Skills", (MenuBar.Command) selectedItem -> this.changeLayout(skillManPage));
         assignSubSkillsPage = new AssignSubSkillsPage(skillRepo);
         skillBar.addItem("Assign Subskills", (MenuBar.Command) selectedItem -> this.changeLayout(assignSubSkillsPage));
 
+
         materialBar = menuBar.addItem("Learning Material Management", null);
         learningMaterialManPage = new LearningMaterialManPage(userRepo, skillRepo, materialRepo);
-        materialBar.addItem("Add/Remove Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(learningMaterialManPage));
+        materialBar.addItem("Add/Remove/Inspect Learning Materials", (MenuBar.Command) menuItem -> this.changeLayout(learningMaterialManPage));
         assignLearningMaterialsPage = new AssignLearningMaterialsPage(userRepo, skillRepo, materialRepo);
         materialBar.addItem("Assign Learning Materials", (MenuBar.Command) menuItem -> {
             this.changeLayout(assignLearningMaterialsPage);
@@ -98,6 +102,14 @@ public class MainPage extends UI {
         userBar.setVisible(value);
         skillBar.setVisible(value);
         materialBar.setVisible(value);
+    }
+
+    public void setBasicVisilibility(boolean visible) {
+        skillManPage.setUserCreationVisibility(visible);
+        learningMaterialManPage.setUserCreationVisibility(visible);
+
+        skillBar.getChildren().get(ASSIGN_SKILL_INDEX).setVisible(visible);
+        materialBar.getChildren().get(ASSIGN_MATERIAL_INDEX).setVisible(visible);
     }
     //TODO method to gray out remove buttons when respective lists are empty
 }

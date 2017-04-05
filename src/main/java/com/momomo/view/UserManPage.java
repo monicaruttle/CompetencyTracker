@@ -5,6 +5,7 @@ import com.momomo.model.LearningMaterial;
 import com.momomo.model.Role;
 import com.momomo.model.Skill;
 import com.momomo.model.User;
+import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -80,10 +81,15 @@ public class UserManPage extends VerticalLayout{
 
         // Content for the PopupView
         VerticalLayout popupContent = new VerticalLayout();
+
+        Button btn = new Button("Submit");
+
         TextField userNameField = new TextField("Username");
         userNameField.addValidator(new UsernameValidator("Invalid Username"));
         userNameField.setDescription("Must be at least 5 characters");
+        userNameField.addFocusListener(new EnterListener(btn));
         TextField fullNameField = new TextField("Full Name");
+        fullNameField.addFocusListener(new EnterListener(btn));
         TextField passwordField = new TextField("Password");
         passwordField.addValidator(new PasswordValidator("Invalid Password"));
         passwordField.setDescription(
@@ -91,18 +97,19 @@ public class UserManPage extends VerticalLayout{
                 "2) Must contain at least one lowercase\n" +
                 "3) Must contain at least one character\n" +
                 "4) Must be between 8 and 15 characters");
+        passwordField.addFocusListener(new EnterListener(btn));
 
         // Selecting the user role
         List<Role> roles = new ArrayList<>();
         roles.addAll(EnumSet.allOf(Role.class));
         ComboBox cmbRole = new ComboBox("User Role");
         cmbRole.addItems(roles);
+        cmbRole.addFocusListener(new EnterListener(btn));
 
+        popupContent.addComponent(cmbRole);
         popupContent.addComponent(userNameField);
         popupContent.addComponent(fullNameField);
         popupContent.addComponent(passwordField);
-        popupContent.addComponent(cmbRole);
-        Button btn = new Button("Submit");
         popupContent.addComponent(btn);
         popupContent.setVisible(true);
 

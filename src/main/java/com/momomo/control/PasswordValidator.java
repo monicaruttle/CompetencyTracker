@@ -11,6 +11,11 @@ public class PasswordValidator extends AbstractValidator<String> {
         super(errorMessage);
     }
 
+    /**
+     * Check if the specified password is a valid password
+     * @param value The password getting validated
+     * @return True if the given password is valid
+     */
     @Override
     protected boolean isValidValue(String value) {
         //Password must have a capital letter, a lowercase letter, a number, and be between 8 and 15 characters
@@ -19,6 +24,10 @@ public class PasswordValidator extends AbstractValidator<String> {
 
     }
 
+    /**
+     * Get the type of the objects being validated
+     * @return The type of the object being validated
+     */
     @Override
     public Class<String> getType() {
         return String.class;
@@ -31,6 +40,11 @@ public class PasswordValidator extends AbstractValidator<String> {
         return false;
     }
 
+    /**
+     * Check if a string has any lowercase
+     * @param value The string getting checked for lowercase
+     * @return If the specified string has a lowercase letter
+     */
     private boolean hasLowerCase(String value) {
         for (char c : value.toCharArray())
             if (Character.isLowerCase(c))

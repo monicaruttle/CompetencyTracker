@@ -27,6 +27,11 @@ public class LearningMaterialRepositoryInterface {
 
     }
 
+    /**
+     * Add a learning material to the database
+     * @param material Learning material to add
+     * @return True if the material was successfully added
+     */
     public boolean addLearningMaterial(LearningMaterial material) {
         if(repo.findByName(material.getName()) == null) {
             repo.save(material);
@@ -35,6 +40,11 @@ public class LearningMaterialRepositoryInterface {
         return false;
     }
 
+    /**
+     * Update a learning material in the database
+     * @param material Learning material to update
+     * @return True if the learning material was updated successfully
+     */
     public boolean updateLearningMaterial(LearningMaterial material) {
         if (repo.findByName(material.getName()) == null) {
             return false;
@@ -44,10 +54,18 @@ public class LearningMaterialRepositoryInterface {
 
     }
 
+    /**
+     * Remove a learning material from the database
+     * @param name The name of the learning material to remove
+     */
     public void removeLearningMaterial(String name) {
         repo.delete(name);
     }
 
+    /**
+     * Get a list of all the learning materials in the database
+     * @return The list of all the learning material in the database.
+     */
     public List<LearningMaterial> getAllLearningMaterials() {
         ArrayList<LearningMaterial> list = new ArrayList<>();
         Iterable<LearningMaterial> iter = repo.findAll();
@@ -55,6 +73,11 @@ public class LearningMaterialRepositoryInterface {
         return list;
     }
 
+    /**
+     * Get a learning material from the database with a specified name
+     * @param name The name of the requested learning material
+     * @return The learning material with the corresponding name
+     */
     public LearningMaterial getLearningMaterialByName(String name) {
         return repo.findByName(name);
     }

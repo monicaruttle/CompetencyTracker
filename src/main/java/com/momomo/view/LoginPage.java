@@ -32,6 +32,10 @@ class LoginPage extends VerticalLayout{
         Button loginBtn = new Button("Login");
         loginBtn.setWidth("300px");
         loginBtn.addClickListener(new LoginEventListener(username, password, userRepositoryInterface, mainPage));
+
+        username.addFocusListener(new EnterListener(loginBtn));
+        password.addFocusListener(new EnterListener(loginBtn));
+
         this.addComponent(loginBtn);
     }
 }

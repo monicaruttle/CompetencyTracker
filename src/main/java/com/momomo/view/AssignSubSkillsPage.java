@@ -72,9 +72,7 @@ class AssignSubSkillsPage extends VerticalLayout {
 
     }
 
-
-
-    private void updateSkillLists(List<Skill> skills) {
+    public void updateSkillLists(List<Skill> skills) {
 
         superSkillList.removeAllItems();
         subSkillList.removeAllItems();

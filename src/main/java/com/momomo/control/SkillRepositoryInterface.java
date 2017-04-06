@@ -26,6 +26,11 @@ public class SkillRepositoryInterface {
 
     }
 
+    /**
+     * Add a skill to the database
+     * @param skill The skill to add to the database
+     * @return True if the skill was added successfully
+     */
     public boolean addSkill(Skill skill) {
         if(repo.findByName(skill.getName()) == null) {
             repo.save(skill);
@@ -34,12 +39,21 @@ public class SkillRepositoryInterface {
         return false;
     }
 
+    /**
+     * Remove a skill from the database
+     * @param name The name of the skill to be removed
+     */
     public void removeSkill(String name) {
 
         repo.delete(name);
 
     }
 
+    /**
+     * Update a skill in the database
+     * @param skill The skill to be updated
+     * @return True if the skill was updated successfully
+     */
     public boolean updateSkill(Skill skill) {
         if (repo.findByName(skill.getName()) == null) {
             return false;
@@ -49,6 +63,10 @@ public class SkillRepositoryInterface {
 
     }
 
+    /**
+     * Get a list of all the skills in the database
+     * @return The list of all the skills in the database
+     */
     public List<Skill> getAllSkills() {
         ArrayList<Skill> list = new ArrayList<>();
         Iterable<Skill> iter = repo.findAll();
@@ -56,6 +74,11 @@ public class SkillRepositoryInterface {
         return list;
     }
 
+    /**
+     * Get a skill from the database given a specified name
+     * @param name The name of the requested skill
+     * @return The skill with the specified name
+     */
     public Skill getSkillByName(String name) {
         return repo.findByName(name);
     }

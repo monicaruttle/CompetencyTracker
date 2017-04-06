@@ -28,6 +28,11 @@ public class UserRepositoryInterface {
 
     }
 
+    /**
+     * Add a user to the database
+     * @param user The user to add to the database
+     * @return True if the user was added successfully
+     */
     public boolean addUser(User user) {
         if(repo.findByUsername(user.getUsername()) == null) {
             repo.save(user);
@@ -36,6 +41,11 @@ public class UserRepositoryInterface {
         return false;
     }
 
+    /**
+     * Update a user in the database
+     * @param user The user to be updated
+     * @return True if the user was updated successfully
+     */
     public boolean updateUser(User user) {
         if (repo.findByUsername(user.getUsername()) == null) {
             return false;
@@ -45,12 +55,20 @@ public class UserRepositoryInterface {
 
     }
 
+    /**
+     * Remove a user from the database
+     * @param username The username of the user to be removed
+     */
     public void removeUser(String username) {
 
         repo.delete(username);
 
     }
 
+    /**
+     * Get a list of all the users in the database
+     * @return The list of all the users in the database
+     */
     public List<User> getAllUsers() {
         ArrayList<User> list = new ArrayList<>();
         Iterable<User> iter = repo.findAll();
@@ -58,10 +76,20 @@ public class UserRepositoryInterface {
         return list;
     }
 
+    /**
+     * Get a user from the database given a specified name
+     * @param name The name of the requested user
+     * @return The user with the specified name
+     */
     public User getUserByUserName(String name) {
         return repo.findByUsername(name);
     }
 
+    /**
+     * Get a list of users that have the specified learning material
+     * @param material The learning material assigned to the requested users
+     * @return The list of users with the specified learning materials
+     */
     public List<User> getUsersByLearningMaterial(LearningMaterial material) {
 
         ArrayList<User> list = new ArrayList<>();

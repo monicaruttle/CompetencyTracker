@@ -19,3 +19,6 @@ For Sprint 2, we will be expanding on the "skills" functionality. When a user "l
 
 ## Sprint 3
 For Sprint 3, we will be expanding on the Sub-skill features. Skills will be able to have sub-skills and prerequisites. If a learning material is applied to a user with a skill that is a sub-skill of a skill not yet learned by that user, an error is thrown and the user cannot "learn" without the prerequisite knowledge. We will also be refactoring the GUI to add CSS styling to improve the user experience. The final touches will be added to allow for a more stable release, with more unit tests and status popups.
+
+## Heroku App Link
+http://moskilla.herokuapp.com/
